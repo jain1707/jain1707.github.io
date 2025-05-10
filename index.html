@@ -465,12 +465,13 @@
             console.log("Google Sign-In response:", response);
 
             // For demo purposes, we'll just show the user's info
+            const userObject = parseJwt(response.credential);
+            console.log("User Info:", userObject);
             const user = {
-                name: response.credential.name,
-                email: response.credential.email,
-                picture: response.credential.picture
+                name: userObject.name,
+                email: userObject.email,
+                picture: userObject.picture
             };
-
             // Update UI to show logged in state
             loginBtn.classList.add('hidden');
             userProfile.classList.remove('hidden');
@@ -483,6 +484,16 @@
 
             // Show welcome toast
             showToast(`Welcome back, ${user.name.split(' ')[0]}!`);
+        }
+
+        function parseJwt(token) {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+
+            return JSON.parse(jsonPayload);
         }
 
         // Function to show toast notifications
@@ -559,7 +570,6 @@
                 locationError.classList.remove('hidden');
                 return;
             }
-
             locationModal.classList.add('hidden');
             showToast('Location set successfully!');
         });
