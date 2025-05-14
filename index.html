@@ -1055,7 +1055,7 @@
             const idToken = response.credential;
             console.log(JSON.stringify({ credential: idToken }))
             // Send token to backend for verification
-            fetch('http://service-lb-655307658.ap-south-1.elb.amazonaws.com/v1/auth/', {
+            fetch('https://l6a1uu55te.execute-api.ap-south-1.amazonaws.com/service-stage/v1/auth', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json'
