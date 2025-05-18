@@ -62,6 +62,18 @@
             color: #3b82f6;
             font-weight: 600;
         }
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
@@ -170,6 +182,63 @@
 
                 <div class="text-center text-sm text-gray-600">
                     Don't have an account? <a href="#" class="text-blue-600 hover:underline">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Phone Verification Modal -->
+    <div id="phoneVerificationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl max-w-md w-full mx-4 overflow-hidden">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">Verify Your Phone</h3>
+                    <button id="closePhoneModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="mb-6">
+                    <p class="text-gray-600 mb-4">We will send a verification code to your phone number. Please enter it below.</p>
+
+                    <div class="mb-4">
+                        <label for="phoneNumber" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <span class="text-gray-500">+91</span>
+                            </div>
+                            <input type="tel" id="phoneNumber" class="w-full pl-12 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="(123) 456-7890">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="verificationCode" class="block text-sm font-medium text-gray-700 mb-1">Verification Code</label>
+                        <div class="flex space-x-2">
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between mb-4">
+                        <button id="resendCodeBtn" class="text-blue-600 hover:underline text-sm">
+                            Resend Code
+                        </button>
+                        <span id="countdown" class="text-gray-500 text-sm hidden">Resend in <span id="seconds">60</span>s</span>
+                    </div>
+
+                    <button id="verifyBtn" class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition flex items-center justify-center">
+                        <span id="verifyBtnText">Verify Phone</span>
+                        <i id="verifySpinner" class="fas fa-spinner fa-spin ml-2 hidden"></i>
+                    </button>
+                </div>
+
+                <div class="text-center text-sm text-gray-600">
+                    Having trouble? <a href="#" class="text-blue-600 hover:underline">Contact support</a>
                 </div>
             </div>
         </div>
@@ -306,83 +375,26 @@
                 <h2 class="text-3xl font-bold">Services Near You</h2>
                 <div class="flex items-center space-x-2">
                     <span class="text-gray-600">Sort by:</span>
-                    <select class="border rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option>Distance</option>
-                        <option>Rating</option>
-                        <option>Price</option>
+                    <select id="sortServices" class="border rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="distance">Distance</option>
+                        <option value="rating">Rating</option>
+                        <option value="price">Price</option>
                     </select>
                 </div>
             </div>
 
             <div id="nearbyServices" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- These would be dynamically loaded based on location -->
-                <div class="service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition">
-                    <div class="h-40 bg-blue-100 flex items-center justify-center">
-                        <i class="fas fa-tools text-4xl text-blue-600"></i>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-xl font-semibold">Handyman Services</h3>
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">0.5 mi</span>
+                <!-- Loading state -->
+                <div id="loadingServices" class="col-span-full text-center py-12">
+                    <div class="inline-block loading-spinner mr-2"></div>
+                    <span>Loading nearby services...</span>
                         </div>
-                        <p class="text-gray-600 mb-4">General home repairs, furniture assembly, and more.</p>
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center">
-                                <i class="fas fa-star text-yellow-400 mr-1"></i>
-                                <span class="font-medium">4.8</span>
-                                <span class="text-gray-500 text-sm ml-1">(24)</span>
-                            </div>
-                            <span class="font-bold">$45/hr</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition">
-                    <div class="h-40 bg-purple-100 flex items-center justify-center">
-                        <i class="fas fa-laptop text-4xl text-purple-600"></i>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-xl font-semibold">Computer Repair</h3>
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">1.2 mi</span>
-                        </div>
-                        <p class="text-gray-600 mb-4">Virus removal, hardware upgrades, and software installation.</p>
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center">
-                                <i class="fas fa-star text-yellow-400 mr-1"></i>
-                                <span class="font-medium">4.9</span>
-                                <span class="text-gray-500 text-sm ml-1">(36)</span>
-                            </div>
-                            <span class="font-bold">$60/hr</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition">
-                    <div class="h-40 bg-green-100 flex items-center justify-center">
-                        <i class="fas fa-baby text-4xl text-green-600"></i>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-xl font-semibold">Babysitting</h3>
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">0.8 mi</span>
-                        </div>
-                        <p class="text-gray-600 mb-4">Experienced childcare with CPR certification.</p>
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center">
-                                <i class="fas fa-star text-yellow-400 mr-1"></i>
-                                <span class="font-medium">4.7</span>
-                                <span class="text-gray-500 text-sm ml-1">(18)</span>
-                            </div>
-                            <span class="font-bold">$20/hr</span>
-                        </div>
-                    </div>
-                </div>
+                <!-- Services will be dynamically inserted here -->
             </div>
 
                 <div class="text-center mt-10">
-                    <button class="px-6 py-3 border border-blue-600 text-blue-600 rounded-full font-medium hover:bg-blue-50 transition">
-                        View All Nearby Services
+                <button id="loadMoreBtn" class="px-6 py-3 border border-blue-600 text-blue-600 rounded-full font-medium hover:bg-blue-50 transition hidden">
+                    Load More Services
                     </button>
                 </div>
             </div>
@@ -902,6 +914,15 @@
     </footer>
 
     <script>
+        // Mock API endpoint for nearby services
+        const BASE_URL = 'https://l6a1uu55te.execute-api.ap-south-1.amazonaws.com/service-stage'
+        const USER_API_URL = BASE_URL+'/v1/user'
+        const PROVIDER_API_URL = BASE_URL+'/v1/provider';
+        const AUTH_API_URL = BASE_URL+'/v1/auth';
+        var user_id;
+        var lat;
+        var lng;
+
         // Tab switching functionality
         const tabs = document.querySelectorAll('[data-tab]');
 
@@ -957,6 +978,10 @@
 
         // Show service offer modal
         offerServicesBtn.addEventListener('click', () => {
+            if(!user_id){
+                enableLogin();
+                return;
+            }
             serviceOfferModal.classList.remove('hide');
             serviceOfferModal.classList.add('show');
         });
@@ -976,20 +1001,22 @@
             detectServiceLocation.disabled = true;
 
             // Simulate location detection
-            setTimeout(() => {
-                document.getElementById('serviceLocation').value = "Within 5 miles of your location";
-                detectServiceLocation.innerHTML = '<i class="fas fa-check"></i>';
-                setTimeout(() => {
-                    detectServiceLocation.innerHTML = '<i class="fas fa-location-arrow"></i>';
-                    detectServiceLocation.disabled = false;
-                }, 1000);
-            }, 1500);
+            locationFinder();
+            document.getElementById('serviceLocation').value = "Within 5 km of your location";
+            detectServiceLocation.innerHTML = '<i class="fas fa-check"></i>';
+            detectServiceLocation.innerHTML = '<i class="fas fa-location-arrow"></i>';
+            detectServiceLocation.disabled = false;
+
         });
 
         // Submit service offer
         submitServiceOffer.addEventListener('click', () => {
             const serviceType = document.getElementById('serviceType').value;
             const serviceTitle = document.getElementById('serviceTitle').value;
+            const serviceDescription = document.getElementById('serviceDescription').value;
+            const serviceRate = document.getElementById('serviceRate').value;
+            const serviceExperience = document.getElementById('serviceExperience').value;
+            const serviceLocation = document.getElementById('serviceLocation').value;
 
             if (!serviceType || !serviceTitle) {
                 toastMessage.textContent = "Please fill in all required fields";
@@ -1002,16 +1029,38 @@
                 return;
             }
 
-            // Here you would normally send the data to your backend
-            console.log("Service Offer Submitted:", {
-                type: serviceType,
-                title: serviceTitle,
-                description: document.getElementById('serviceDescription').value,
-                rate: document.getElementById('serviceRate').value,
-                experience: document.getElementById('serviceExperience').value,
-                location: document.getElementById('serviceLocation').value
-            });
+            // Show loading state on button
+            submitServiceOffer.innerHTML = '<span class="loading-spinner mr-2"></span> Submitting...';
+            submitServiceOffer.disabled = true;
 
+            // Prepare service data
+            const serviceData = {
+                user_id:user_id,
+                service_type: serviceType,
+                service_title: serviceTitle,
+                service_desc: serviceDescription,
+                rate: serviceRate,
+                experience: serviceExperience,
+                //location: serviceLocation,
+            };
+
+            // Make POST request to backend API
+            fetch(PROVIDER_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Include authorization token if needed
+                    // 'Authorization': 'Bearer ' + authToken
+                },
+                body: JSON.stringify({providers : [serviceData],latLong: {lat,lng}})
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
             // Show success message
             toastMessage.textContent = "Service offer submitted successfully!";
             successToast.classList.remove('hidden');
@@ -1026,6 +1075,22 @@
             document.getElementById('serviceRate').value = '';
             document.getElementById('serviceLocation').value = '';
             hideServiceOfferModal();
+        }).catch(error => {
+                console.error('Error submitting service offer:', error);
+                toastMessage.textContent = "Failed to submit service offer. Please try again.";
+                successToast.className = successToast.className.replace('bg-green-500', 'bg-red-500');
+                successToast.classList.remove('hidden');
+                setTimeout(() => {
+                    successToast.classList.add('hidden');
+                    successToast.className = successToast.className.replace('bg-red-500', 'bg-green-500');
+                }, 3000);
+            })
+            .finally(() => {
+                // Reset button state
+                submitServiceOffer.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Submit Offer';
+                submitServiceOffer.disabled = false;
+            });
+            fetchNearbyServices();
         });
 
         // Login modal functionality
@@ -1036,10 +1101,160 @@
         const userAvatar = document.getElementById('userAvatar');
         const userName = document.getElementById('userName');
 
-        // Show login modal
-        loginBtn.addEventListener('click', () => {
+        const phoneVerificationModal = document.getElementById('phoneVerificationModal');
+        const closePhoneModal = document.getElementById('closePhoneModal');
+        const verifyBtn = document.getElementById('verifyBtn');
+        const verifySpinner = document.getElementById('verifySpinner');
+        const verifyBtnText = document.getElementById('verifyBtnText');
+        const resendCodeBtn = document.getElementById('resendCodeBtn');
+        const countdown = document.getElementById('countdown');
+        const seconds = document.getElementById('seconds');
+        const verificationDigits = document.querySelectorAll('.verification-digit');
+        const phoneNumberInput = document.getElementById('phoneNumber');
+        var user_phone;
+
+        // Handle verification code input
+        verificationDigits.forEach((digit, index) => {
+            digit.addEventListener('input', (e) => {
+                // Auto focus next input
+                if (e.target.value.length === 1 && index < verificationDigits.length - 1) {
+                    verificationDigits[index + 1].focus();
+                }
+
+                // Validate input (numbers only)
+                if (!/^\d*$/.test(e.target.value)) {
+                    e.target.value = '';
+                }
+            });
+
+            // Handle backspace
+            digit.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && e.target.value.length === 0 && index > 0) {
+                    verificationDigits[index - 1].focus();
+                }
+            });
+        });
+
+        // Format phone number input
+        phoneNumberInput.addEventListener('input', (e) => {
+            const input = e.target.value.replace(/\D/g, '').substring(0, 10);
+            user_phone=input;
+            const areaCode = input.substring(0, 3);
+            const middle = input.substring(3, 6);
+            const last = input.substring(6, 10);
+
+            if (input.length > 6) {
+                e.target.value = `(${areaCode}) ${middle}-${last}`;
+            } else if (input.length > 3) {
+                e.target.value = `(${areaCode}) ${middle}`;
+            } else if (input.length > 0) {
+                e.target.value = `(${areaCode}`;
+            }
+        });
+
+        // Verify button handler
+        const USER_PHONE_API_URL = USER_API_URL+'phone';
+        verifyBtn.addEventListener('click', () => {
+            // Show loading state
+            verifySpinner.classList.remove('hidden');
+            verifyBtnText.textContent = 'Verifying...';
+            verifyBtn.disabled = true;
+
+            // Get verification code
+            let code = '';
+            verificationDigits.forEach(digit => {
+                code += digit.value;
+            });
+
+            // Simulate API verification
+            setTimeout(() => {
+                if (code === '123456') { // Hardcoded correct code for demo
+                    // Success - close modal
+                    phoneVerificationModal.classList.add('hidden');
+
+                    // Show success message (could be a toast)
+                    alert('Phone number verified successfully!');
+                    fetch(USER_PHONE_API_URL, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            emailId: user_id,
+                            phoneNumber: user_phone
+                        })
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok: ' + response.statusText);
+                            }
+                            return response.json(); // or response.text() if expecting plain text
+                        })
+                        .then(data => {
+                            console.log('Success:', data);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+
+
+                } else {
+                    // Error - shake animation
+                    verificationDigits.forEach(digit => {
+                        digit.classList.add('shake');
+                        digit.style.borderColor = '#ef4444';
+                        setTimeout(() => {
+                            digit.classList.remove('shake');
+                        }, 1000);
+                    });
+                }
+
+                // Reset verify button
+                verifySpinner.classList.add('hidden');
+                verifyBtnText.textContent = 'Verify Phone';
+                verifyBtn.disabled = false;
+            }, 1500);
+        });
+
+        // Resend code handler
+        resendCodeBtn.addEventListener('click', () => {
+            if (resendCodeBtn.classList.contains('text-gray-400')) return;
+
+            // Disable resend button and show countdown
+            resendCodeBtn.classList.add('text-gray-400', 'cursor-not-allowed');
+            countdown.classList.remove('hidden');
+            startCountdown();
+
+            // Simulate API call to resend code
+            setTimeout(() => {
+                // Show success message (could be a toast)
+                alert('New verification code sent!');
+            }, 500);
+        });
+
+        // Countdown function
+        function startCountdown() {
+            let timeLeft = 60;
+            const timer = setInterval(() => {
+                timeLeft--;
+                seconds.textContent = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    countdown.classList.add('hidden');
+                    resendCodeBtn.classList.remove('text-gray-400', 'cursor-not-allowed');
+                }
+            }, 1000);
+        }
+
+        function enableLogin() {
             loginModal.classList.remove('hidden');
             loginModal.classList.add('visible');
+        }
+
+        // Show login modal
+        loginBtn.addEventListener('click', () => {
+            enableLogin();
         });
 
         // Hide login modal
@@ -1049,48 +1264,62 @@
         });
 
         // Handle Google Sign-In
+
+
         function handleGoogleSignIn(response) {
             // This is where you would normally verify the credential with your backend
-            console.log("Google Sign-In response:", response);
             const idToken = response.credential;
-            console.log(JSON.stringify({ credential: idToken }))
             // Send token to backend for verification
-            fetch('https://l6a1uu55te.execute-api.ap-south-1.amazonaws.com/service-stage/v1/auth', {
+            fetch(AUTH_API_URL, {
                 method: 'POST',
+                credentials: "include",
                 headers: {
                 'Content-Type': 'application/json'
                 },
-                mode: 'cors',
-            body: JSON.stringify({ idToken: idToken })
+            body: JSON.stringify({ credential: idToken })
              })
             .then(res => res.json())
             .then(data => {
-        console.log("User info from backend:", data);
-        //document.getElementById("userInfo").textContent = JSON.stringify(data, null, 2);
+                user_id = data.email;
+                const user = {
+                    name: data.firstName,
+                    email: data.email,
+                    picture: data.pic
+                };
+                // Update UI to show logged in state
+            loginBtn.classList.add('hidden');
+            userProfile.classList.remove('hidden');
+            userAvatar.src = user.picture;
+            userName.textContent = user.name; // Show first name only
+            showToast(`Welcome back, ${user.name}!`);
       })
       .catch(err => {
         console.error("Authentication failed", err);
       });
             // For demo purposes, we'll just show the user's info
-            const userObject = parseJwt(response.credential);
-            console.log("User Info:", userObject);
-            const user = {
-                name: userObject.name,
-                email: userObject.email,
-                picture: userObject.picture
-            };
-            // Update UI to show logged in state
-            loginBtn.classList.add('hidden');
-            userProfile.classList.remove('hidden');
-            userAvatar.src = user.picture;
-            userName.textContent = user.name.split(' ')[0]; // Show first name only
+            //const userObject = parseJwt(response.credential);
+            //console.log("User Info:", userObject);
+
+
 
             // Hide login modal
             loginModal.classList.remove('visible');
             loginModal.classList.add('hidden');
 
-            // Show welcome toast
-            showToast(`Welcome back, ${user.name.split(' ')[0]}!`);
+            setTimeout(() => {
+
+                // Show phone verification modal
+                phoneVerificationModal.classList.remove('hidden');
+
+                // Reset login button
+                //loginSpinner.classList.add('hidden');
+                //loginBtnText.textContent = 'Login with Email';
+                loginBtn.disabled = false;
+
+                // Start countdown for resend
+                startCountdown();
+            }, 1500);
+
         }
 
         function parseJwt(token) {
@@ -1139,16 +1368,12 @@
             locationModal.classList.add('hidden');
         });
 
-        detectLocationBtn.addEventListener('click', () => {
-            locationError.classList.add('hidden');
-            detectLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-            detectLocationBtn.disabled = true;
-
+        function locationFinder() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
-                        const lat = position.coords.latitude;
-                        const lng = position.coords.longitude;
+                        lat = position.coords.latitude;
+                        lng = position.coords.longitude;
                         locationInput.value = "Your current location";
                         detectLocationBtn.innerHTML = '<i class="fas fa-check"></i>';
                         setTimeout(() => {
@@ -1168,6 +1393,14 @@
                 detectLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i>';
                 detectLocationBtn.disabled = false;
             }
+        }
+
+        detectLocationBtn.addEventListener('click', () => {
+            locationError.classList.add('hidden');
+            detectLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            detectLocationBtn.disabled = true;
+            console.log(navigator.geolocation);
+            locationFinder();
         });
 
         confirmLocationBtn.addEventListener('click', () => {
@@ -1178,6 +1411,9 @@
             }
             locationModal.classList.add('hidden');
             showToast('Location set successfully!');
+
+            // After setting location, fetch nearby services
+            fetchNearbyServices();
         });
 
         // Initialize Google Sign-In
@@ -1187,8 +1423,161 @@
             console.log("Google Sign-In initialized");
         }
 
+        // Function to fetch nearby services from API
+        function fetchNearbyServices() {
+            const nearbyServicesContainer = document.getElementById('nearbyServices');
+            const loadingElement = document.getElementById('loadingServices');
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            // Show loading state
+            loadingElement.classList.remove('hidden');
+            nearbyServicesContainer.innerHTML = '';
+            nearbyServicesContainer.appendChild(loadingElement);
+            // Make API call to fetch nearby services
+            var provider_geo_url= PROVIDER_API_URL
+            if(lat){
+            provider_geo_url= PROVIDER_API_URL+'/'+lat+'/'+lng;
+            }
+            //PROVIDER_URL=MOCK_API_URL+'34.455476767/68.232455531'
+            fetch(provider_geo_url,{
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                method: "GET"
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Hide loading state
+                    console.log(data)
+                    loadingElement.classList.add('hidden');
+                    console.log(document.getElementById('loadingServices'));
+                    if (data && data.length > 0) {
+                        // Render service cards
+                        renderServiceCards(data);
+
+                        // Show load more button if there are more services
+                        if (data.hasMore) {
+                            loadMoreBtn.classList.remove('hidden');
+                        }
+                    } else {
+                        // Show no services message
+                        nearbyServicesContainer.innerHTML = `
+                            <div class="col-span-full text-center py-12">
+                                <i class="fas fa-info-circle text-4xl text-gray-400 mb-4"></i>
+                                <p class="text-gray-600">No services found in your area. Try expanding your search radius.</p>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.log(nearbyServicesContainer);
+                    console.error('Error fetching nearby services:', error);
+                    loadingElement.classList.add('hidden');
+                    /*nearbyServicesContainer.innerHTML = `
+                        <div class="col-span-full text-center py-12">
+                            <i class="fas fa-exclamation-triangle text-4xl text-red-400 mb-4"></i>
+                            <p class="text-gray-600">Failed to load services. Please try again later.</p>
+                            <button onclick="fetchNearbyServices()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                                Retry
+                            </button>
+                        </div>
+                    `;*/
+                    //console.log(document.getElementById('loadingServices'));
+                });
+        }
+
+        // Function to render service cards
+        function renderServiceCards(services) {
+            const nearbyServicesContainer = document.getElementById('nearbyServices');
+
+            // Clear existing content
+            nearbyServicesContainer.innerHTML = '';
+
+            // Create a document fragment for better performance
+            const fragment = document.createDocumentFragment();
+
+            // Map service types to colors and icons
+            const serviceTypeStyles = {
+                'home': { bg: 'bg-blue-100', text: 'text-blue-600', icon: 'fa-tools' },
+                'tech': { bg: 'bg-purple-100', text: 'text-purple-600', icon: 'fa-laptop' },
+                'childcare': { bg: 'bg-green-100', text: 'text-green-600', icon: 'fa-baby' },
+                'fitness': { bg: 'bg-red-100', text: 'text-red-600', icon: 'fa-dumbbell' },
+                'auto': { bg: 'bg-yellow-100', text: 'text-yellow-600', icon: 'fa-car' },
+                'creative': { bg: 'bg-indigo-100', text: 'text-indigo-600', icon: 'fa-paint-brush' },
+                'petcare': { bg: 'bg-pink-100', text: 'text-pink-600', icon: 'fa-dog' },
+                'food': { bg: 'bg-teal-100', text: 'text-teal-600', icon: 'fa-utensils' },
+                'gardening': { bg: 'bg-orange-100', text: 'text-orange-600', icon: 'fa-leaf' }
+            };
+
+            // Create a card for each service
+            services.forEach(service => {
+                const serviceType = service.service_type || 'home';
+                const styles = serviceTypeStyles[serviceType] || serviceTypeStyles['home'];
+
+                const card = document.createElement('div');
+                card.className = 'service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition';
+                card.innerHTML = `
+                    <div class="h-40 ${styles.bg} flex items-center justify-center">
+                        <i class="fas ${styles.icon} text-4xl ${styles.text}"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold">${service.service_title}</h3>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">1 km</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">${service.service_desc}</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <span class="font-medium">5</span>
+                                <span class="text-gray-500 text-sm ml-1">(${service.reviews})</span>
+                            </div>
+                            <span class="font-bold">₹${service.rate}</span>
+                        </div>
+                    </div>
+                `;
+
+                fragment.appendChild(card);
+            });
+
+            // Append all cards at once
+            nearbyServicesContainer.appendChild(fragment);
+        }
+
+        // Load more services
+        document.getElementById('loadMoreBtn').addEventListener('click', () => {
+            // In a real app, you would fetch the next page of results
+            // For this demo, we'll just show a toast
+            showToast('Loading more services...');
+
+            // Simulate loading more services
+            setTimeout(() => {
+                showToast('More services loaded!');
+            }, 1500);
+        });
+
+        // Sort services
+        document.getElementById('sortServices').addEventListener('change', (e) => {
+            const sortBy = e.target.value;
+            showToast(`Services sorted by ${sortBy}`);
+
+            // In a real app, you would re-fetch or re-sort the services
+        });
+
         // Initialize when the page loads
-        window.addEventListener('DOMContentLoaded', initializeGoogleSignIn);
+        window.addEventListener('DOMContentLoaded', () => {
+            initializeGoogleSignIn();
+
+            // Fetch nearby services on page load (with a small delay to simulate network request)
+            setTimeout(() => {
+                fetchNearbyServices();
+            }, 500);
+        });
     </script>
 </body>
 </html>
