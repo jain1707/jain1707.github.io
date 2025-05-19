@@ -14,16 +14,95 @@
             width: 100%;
             border-radius: 1rem;
         }
+
+        .service-offer-modal {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-offer-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .service-detail-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-detail-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .service-detail-container {
+            background-color: white;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .service-detail-overlay.active .service-detail-container {
+            transform: translateY(0);
+        }
+
+        .service-card {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        /*.service-card:hover {
+            transform: translateY(-5px);
+        }*/
+
+        .service-image {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .service-detail-container {
+                width: 95%;
+            }
+        }
+
         .service-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
+
         .gradient-bg {
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
         }
+
         .pulse {
             animation: pulse 2s infinite;
         }
+
         @keyframes pulse {
             0% {
                 transform: scale(0.95);
@@ -38,46 +117,150 @@
                 box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
             }
         }
+
         .service-offer-modal {
             transition: all 0.3s ease;
         }
+
         .service-offer-modal.show {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
         }
+
         .service-offer-modal.hide {
             opacity: 0;
             visibility: hidden;
             transform: translateY(20px);
         }
+
         .tab-content {
             display: none;
         }
+
         .tab-content.active {
             display: block;
         }
+
         .tab-button.active {
             border-bottom: 3px solid #3b82f6;
             color: #3b82f6;
             font-weight: 600;
         }
+
         .loading-spinner {
             display: inline-block;
             width: 20px;
             height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
+            border: 3px solid rgba(255, 255, 255, .3);
             border-radius: 50%;
             border-top-color: #fff;
             animation: spin 1s ease-in-out infinite;
         }
+
+        .image-preview-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .image-preview {
+            position: relative;
+            height: 80px;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .remove-image-btn {
+            position: absolute;
+            top: 0.25rem;
+            right: 0.25rem;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            width: 1.25rem;
+            height: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.6rem;
+        }
+
+        .upload-area {
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            border-color: #3b82f6;
+            background-color: #f8fafc;
+        }
+
+        .upload-area.active {
+            border-color: #3b82f6;
+            background-color: #f0f9ff;
+        }
+
+        .progress-bar {
+            height: 0.5rem;
+            background-color: #e5e7eb;
+            border-radius: 0.25rem;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #3b82f6;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        .login-modal {
+            transition: opacity 0.3s ease;
+        }
+        .user-dropdown {
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.2s ease;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            z-index: 50;
+            min-width: 160px;
+            overflow: hidden;
+        }
+        .user-dropdown.show {
+            transform: scaleY(1);
+        }
+
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
+<!-- Navigation -->
 <body class="bg-gray-50 font-sans">
-    <!-- Navigation -->
     <nav class="gradient-bg text-white shadow-lg">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-2">
@@ -90,11 +273,19 @@
                 <a href="#" class="hover:text-gray-200" data-tab="services">Services</a>
                 <a href="#" class="hover:text-gray-200" data-tab="about">About</a>
             </div>
-            <div class="flex items-center space-x-4">
-                <button id="loginBtn" class="px-4 py-2 bg-white text-blue-600 rounded-full font-medium hover:bg-gray-100 transition">Login</button>
+            <div class="flex items-center space-x-4 relative">
+                <button id="loginBtn"
+                        class="px-4 py-2 bg-white text-blue-600 rounded-full font-medium hover:bg-gray-100 transition">
+                    Login
+                </button>
                 <div id="userProfile" class="hidden items-center space-x-2 cursor-pointer">
                     <img id="userAvatar" src="" alt="User" class="w-8 h-8 rounded-full">
                     <span id="userName" class="font-medium"></span>
+                </div>
+                <div id="userDropdown" class="user-dropdown">
+                    <!--<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>-->
+                    <button id="logoutBtn" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</button>
                 </div>
                 <button class="md:hidden text-white">
                     <i class="fas fa-bars text-xl"></i>
@@ -102,167 +293,203 @@
             </div>
         </div>
     </nav>
+     <!-- Main Content -->
+    <!--<main class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-xl font-semibold mb-4">Welcome to ConnectServe</h2>
+            <p class="text-gray-600" id="sessionStatus">Please login to access your account.</p>
 
-    <!-- Location Finder Modal -->
-    <div id="locationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-xl max-w-md w-full mx-4 overflow-hidden">
-            <div class="p-6">
-                <h3 class="text-2xl font-bold mb-4">Find Services Near You</h3>
-                <p class="text-gray-600 mb-6">We'll use your location to show services in your area. You can also enter a different location.</p>
+        </div>
+    </main>-->
 
-                <div class="mb-6">
-                    <div id="map" class="map-container mb-4"></div>
-                    <div class="flex items-center mb-4">
-                        <input type="text" id="locationInput" placeholder="Enter your address" class="flex-1 px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <button id="detectLocationBtn" class="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition">
-                            <i class="fas fa-location-arrow"></i>
-                        </button>
-                    </div>
-                    <div id="locationError" class="text-red-500 text-sm hidden">Could not determine your location. Please enter it manually.</div>
+<!-- Location Finder Modal -->
+<div id="locationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl max-w-md w-full mx-4 overflow-hidden">
+        <div class="p-6">
+            <h3 class="text-2xl font-bold mb-4">Find Services Near You</h3>
+            <p class="text-gray-600 mb-6">We'll use your location to show services in your area. You can also enter a
+                different location.</p>
+
+            <div class="mb-6">
+                <div id="map" class="map-container mb-4"></div>
+                <div class="flex items-center mb-4">
+                    <input type="text" id="locationInput" placeholder="Enter your address"
+                           class="flex-1 px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button id="detectLocationBtn"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition">
+                        <i class="fas fa-location-arrow"></i>
+                    </button>
                 </div>
-
-                <div class="flex justify-between">
-                    <button id="cancelLocationBtn" class="px-4 py-2 border rounded-lg hover:bg-gray-100 transition">Cancel</button>
-                    <button id="confirmLocationBtn" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Confirm Location</button>
+                <div id="locationError" class="text-red-500 text-sm hidden">Could not determine your location. Please
+                    enter it manually.
                 </div>
+            </div>
+
+            <div class="flex justify-between">
+                <button id="cancelLocationBtn" class="px-4 py-2 border rounded-lg hover:bg-gray-100 transition">Cancel
+                </button>
+                <button id="confirmLocationBtn"
+                        class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Confirm
+                    Location
+                </button>
             </div>
         </div>
     </div>
+</div>
+<!-- Login Modal -->
+<div id="loginModal"
+     class="login-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl max-w-md w-full mx-4 overflow-hidden">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold">Welcome to ConnectServe</h3>
+                <button id="closeLoginModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
 
-    <!-- Login Modal -->
-    <div id="loginModal" class="login-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-xl max-w-md w-full mx-4 overflow-hidden">
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-2xl font-bold">Welcome to ConnectServe</h3>
-                    <button id="closeLoginModal" class="text-gray-500 hover:text-gray-700">
-                        <i class="fas fa-times"></i>
+            <div class="mb-6">
+                <div class="flex flex-col space-y-4">
+                    <!-- Google Sign-In Button -->
+                    <div id="g_id_onload"
+                         data-client_id="481444267537-ofds7ahe9lr31pevg8amm9l8spj2nkqf.apps.googleusercontent.com"
+                         data-context="signin"
+                         data-ux_mode="popup"
+                         data-callback="handleGoogleSignIn"
+                         data-auto_prompt="false">
+                    </div>
+                    <div class="g_id_signin"
+                         data-type="standard"
+                         data-shape="rectangular"
+                         data-theme="outline"
+                         data-text="signin_with"
+                         data-size="large"
+                         data-logo_alignment="left">
+                    </div>
+
+                    <div class="flex items-center">
+                        <div class="flex-1 border-t border-gray-300"></div>
+                        <span class="mx-4 text-gray-500">or</span>
+                        <div class="flex-1 border-t border-gray-300"></div>
+                    </div>
+
+                    <!-- Email Login Form -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="email"
+                               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input type="password" id="password"
+                               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                        <button id="emailLoginBtn" class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
+                        Login with Email
                     </button>
                 </div>
+            </div>
 
-                <div class="mb-6">
-                    <div class="flex flex-col space-y-4">
-                        <!-- Google Sign-In Button -->
-                        <div id="g_id_onload"
-                            data-client_id="481444267537-ofds7ahe9lr31pevg8amm9l8spj2nkqf.apps.googleusercontent.com"
-                            data-context="signin"
-                            data-ux_mode="popup"
-                            data-callback="handleGoogleSignIn"
-                            data-auto_prompt="false">
-                        </div>
-                        <div class="g_id_signin"
-                            data-type="standard"
-                            data-shape="rectangular"
-                            data-theme="outline"
-                            data-text="signin_with"
-                            data-size="large"
-                            data-logo_alignment="left">
-                        </div>
-
-                        <div class="flex items-center">
-                            <div class="flex-1 border-t border-gray-300"></div>
-                            <span class="mx-4 text-gray-500">or</span>
-                            <div class="flex-1 border-t border-gray-300"></div>
-                        </div>
-
-                        <!-- Email Login Form -->
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
-                        <div>
-                            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                            <input type="password" id="password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
-                        <button class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
-                            Login with Email
-                        </button>
-                    </div>
-                </div>
-
-                <div class="text-center text-sm text-gray-600">
-                    Don't have an account? <a href="#" class="text-blue-600 hover:underline">Sign up</a>
-                </div>
+            <div class="text-center text-sm text-gray-600">
+                Don't have an account? <a href="#" class="text-blue-600 hover:underline">Sign up</a>
             </div>
         </div>
     </div>
+</div>
 
 
-    <!-- Phone Verification Modal -->
-    <div id="phoneVerificationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-xl max-w-md w-full mx-4 overflow-hidden">
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-2xl font-bold">Verify Your Phone</h3>
-                    <button id="closePhoneModal" class="text-gray-500 hover:text-gray-700">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
+<!-- Phone Verification Modal -->
+<div id="phoneVerificationModal"
+     class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl max-w-md w-full mx-4 overflow-hidden">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold">Verify Your Phone</h3>
+                <button id="closePhoneModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
 
-                <div class="mb-6">
-                    <p class="text-gray-600 mb-4">We will send a verification code to your phone number. Please enter it below.</p>
+            <div class="mb-6">
+                <p class="text-gray-600 mb-4">We will send a verification code to your phone number. Please enter it
+                    below.</p>
 
-                    <div class="mb-4">
-                        <label for="phoneNumber" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <span class="text-gray-500">+91</span>
-                            </div>
-                            <input type="tel" id="phoneNumber" class="w-full pl-12 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="(123) 456-7890">
+                <div class="mb-4">
+                    <label for="phoneNumber" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <span class="text-gray-500">+91</span>
                         </div>
+                        <input type="tel" id="phoneNumber"
+                               class="w-full pl-12 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                               placeholder="(123) 456-7890">
                     </div>
+                </div>
 
-                    <div class="mb-4">
-                        <label for="verificationCode" class="block text-sm font-medium text-gray-700 mb-1">Verification Code</label>
-                        <div class="flex space-x-2">
-                            <input type="text" maxlength="1" class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
-                            <input type="text" maxlength="1" class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
-                            <input type="text" maxlength="1" class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
-                            <input type="text" maxlength="1" class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
-                            <input type="text" maxlength="1" class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
-                            <input type="text" maxlength="1" class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
-                        </div>
+                <div class="mb-4">
+                    <label for="verificationCode" class="block text-sm font-medium text-gray-700 mb-1">Verification
+                        Code</label>
+                    <div class="flex space-x-2">
+                        <input type="text" maxlength="1"
+                               class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
+                        <input type="text" maxlength="1"
+                               class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
+                        <input type="text" maxlength="1"
+                               class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
+                        <input type="text" maxlength="1"
+                               class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
+                        <input type="text" maxlength="1"
+                               class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
+                        <input type="text" maxlength="1"
+                               class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 verification-digit">
                     </div>
+                </div>
 
-                    <div class="flex items-center justify-between mb-4">
-                        <button id="resendCodeBtn" class="text-blue-600 hover:underline text-sm">
-                            Resend Code
-                        </button>
-                        <span id="countdown" class="text-gray-500 text-sm hidden">Resend in <span id="seconds">60</span>s</span>
-                    </div>
-
-                    <button id="verifyBtn" class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition flex items-center justify-center">
-                        <span id="verifyBtnText">Verify Phone</span>
-                        <i id="verifySpinner" class="fas fa-spinner fa-spin ml-2 hidden"></i>
+                <div class="flex items-center justify-between mb-4">
+                    <button id="resendCodeBtn" class="text-blue-600 hover:underline text-sm">
+                        Resend Code
                     </button>
+                    <span id="countdown" class="text-gray-500 text-sm hidden">Resend in <span
+                            id="seconds">60</span>s</span>
                 </div>
 
-                <div class="text-center text-sm text-gray-600">
-                    Having trouble? <a href="#" class="text-blue-600 hover:underline">Contact support</a>
-                </div>
+                <button id="verifyBtn"
+                        class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition flex items-center justify-center">
+                    <span id="verifyBtnText">Verify Phone</span>
+                    <i id="verifySpinner" class="fas fa-spinner fa-spin ml-2 hidden"></i>
+                </button>
+            </div>
+
+            <div class="text-center text-sm text-gray-600">
+                Having trouble? <a href="#" class="text-blue-600 hover:underline">Contact support</a>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Tab Contents -->
-    <div id="home" class="tab-content active">
+<!-- Tab Contents -->
+<div id="home" class="tab-content active">
     <!-- Hero Section -->
     <section class="gradient-bg text-white py-16">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
             <div class="md:w-1/2 mb-10 md:mb-0">
                 <h1 class="text-4xl md:text-5xl font-bold mb-6">Find or Offer Services Near You</h1>
-                <p class="text-xl mb-8">Connect with local service providers or offer your skills to people in your community.</p>
+                <p class="text-xl mb-8">Connect with local service providers or offer your skills to people in your
+                    community.</p>
                 <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                    <button id="findServicesBtn" class="px-6 py-3 bg-white text-blue-600 rounded-full font-bold hover:bg-gray-100 transition flex items-center justify-center">
+                    <button id="findServicesBtn"
+                            class="px-6 py-3 bg-white text-blue-600 rounded-full font-bold hover:bg-gray-100 transition flex items-center justify-center">
                         <i class="fas fa-search mr-2"></i> Find Services
                     </button>
-                    <button id="offerServicesBtn" class="px-6 py-3 bg-transparent border-2 border-white text-white rounded-full font-bold hover:bg-white hover:text-blue-600 transition flex items-center justify-center">
+                    <button id="offerServicesBtn"
+                            class="px-6 py-3 bg-transparent border-2 border-white text-white rounded-full font-bold hover:bg-white hover:text-blue-600 transition flex items-center justify-center">
                         <i class="fas fa-hand-holding-heart mr-2"></i> Offer Services
                     </button>
                 </div>
             </div>
             <div class="md:w-1/2 flex justify-center">
-                <img src="https://illustrations.popsy.co/amber/digital-nomad.svg" alt="Service illustration" class="w-full max-w-md">
+                <img src="https://illustrations.popsy.co/amber/digital-nomad.svg" alt="Service illustration"
+                     class="w-full max-w-md">
             </div>
         </div>
     </section>
@@ -277,7 +504,8 @@
                         <i class="fas fa-map-marker-alt text-blue-600 text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">1. Set Your Location</h3>
-                    <p class="text-gray-600">Allow us to access your location or enter your address to find services nearby.</p>
+                    <p class="text-gray-600">Allow us to access your location or enter your address to find services
+                        nearby.</p>
                 </div>
                 <div class="text-center p-6 rounded-xl hover:bg-gray-50 transition">
                     <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -291,12 +519,12 @@
                         <i class="fas fa-handshake text-green-600 text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">3. Connect & Collaborate</h3>
-                    <p class="text-gray-600">Message directly with service providers or seekers and arrange the details.</p>
+                    <p class="text-gray-600">Message directly with service providers or seekers and arrange the
+                        details.</p>
                 </div>
             </div>
         </div>
     </section>
-
 
 
     <!-- Service Categories -->
@@ -375,7 +603,8 @@
                 <h2 class="text-3xl font-bold">Services Near You</h2>
                 <div class="flex items-center space-x-2">
                     <span class="text-gray-600">Sort by:</span>
-                    <select id="sortServices" class="border rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select id="sortServices"
+                            class="border rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option value="distance">Distance</option>
                         <option value="rating">Rating</option>
                         <option value="price">Price</option>
@@ -388,672 +617,1046 @@
                 <div id="loadingServices" class="col-span-full text-center py-12">
                     <div class="inline-block loading-spinner mr-2"></div>
                     <span>Loading nearby services...</span>
-                        </div>
+                </div>
                 <!-- Services will be dynamically inserted here -->
             </div>
 
-                <div class="text-center mt-10">
-                <button id="loadMoreBtn" class="px-6 py-3 border border-blue-600 text-blue-600 rounded-full font-medium hover:bg-blue-50 transition hidden">
-                    Load More Services
-                    </button>
+            <!-- Service Detail Overlay -->
+            <div id="serviceDetailOverlay" class="service-detail-overlay">
+                <div class="service-detail-container">
+                    <div class="relative">
+                        <img id="detailServiceImage" src="" alt="Service Image" class="service-image rounded-t-lg">
+                        <button id="closeDetailBtn"
+                                class="absolute top-4 right-4 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100">
+                            <i class="fas fa-times text-gray-700"></i>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h2 id="detailServiceTitle" class="text-2xl font-bold text-gray-800"></h2>
+                                <p id="detailServiceCategory" class="text-sm text-gray-500"></p>
+                            </div>
+                            <span id="detailServiceDistance"
+                                  class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded"></span>
+                        </div>
+
+                        <div class="flex items-center mb-4">
+                            <div class="flex items-center mr-4">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <span id="detailServiceRating" class="font-medium"></span>
+                                <span id="detailServiceReviews" class="text-gray-500 text-sm ml-1"></span>
+                            </div>
+                            <span id="detailServiceRate" class="font-bold text-xl"></span>
+                        </div>
+
+                        <p id="detailServiceDescription" class="text-gray-700 mb-6"></p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <h3 class="font-semibold text-gray-800 mb-2">Service Provider</h3>
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center mr-3">
+                                        <i class="fas fa-user text-gray-500"></i>
+                                    </div>
+                                    <div>
+                                        <p id="detailServiceProvider" class="font-medium"></p>
+                                        <p id="detailServiceExperience" class="text-sm text-gray-500"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="font-semibold text-gray-800 mb-2">Availability</h3>
+                                <p id="detailServiceAvailability" class="text-gray-700"></p>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-gray-800 mb-2">Gallery</h3>
+                            <div id="serviceGallery" class="grid grid-cols-3 gap-2"></div>
+                        </div>
+
+                        <button id="bookServiceBtn"
+                                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition">
+                            Book This Service
+                        </button>
+                    </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Become a Provider -->
-        <section class="py-16 gradient-bg text-white">
-            <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl font-bold mb-6">Have skills to offer?</h2>
-                <p class="text-xl mb-8 max-w-2xl mx-auto">Join thousands of service providers earning money by helping their community.</p>
-                <button class="px-8 py-3 bg-white text-blue-600 rounded-full font-bold hover:bg-gray-100 transition">
-                    Become a Service Provider
+            <div class="text-center mt-10">
+                <button id="loadMoreBtn"
+                        class="px-6 py-3 border border-blue-600 text-blue-600 rounded-full font-medium hover:bg-blue-50 transition hidden">
+                    Load More Services
                 </button>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 
-    <!-- Services Tab Content -->
-    <div id="services" class="tab-content">
-        <section class="py-12 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-                    <h2 class="text-3xl font-bold">All Services</h2>
-                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-4 md:mt-0">
-                        <div class="relative">
-                            <input type="text" placeholder="Search services..." class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
-                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                        </div>
-                        <select class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option>All Categories</option>
-                            <option>Home Services</option>
-                            <option>Auto Services</option>
-                            <option>Tech Support</option>
-                            <option>Child Care</option>
-                            <option>Fitness</option>
-                            <option>Creative</option>
-                            <option>Pet Care</option>
-                            <option>Food Services</option>
-                            <option>Gardening</option>
-                        </select>
+    <!-- Become a Provider -->
+    <section class="py-16 gradient-bg text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Have skills to offer?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Join thousands of service providers earning money by helping their
+                community.</p>
+            <button class="px-8 py-3 bg-white text-blue-600 rounded-full font-bold hover:bg-gray-100 transition">
+                Become a Service Provider
+            </button>
+        </div>
+    </section>
+</div>
+
+<!-- Services Tab Content -->
+<div id="services" class="tab-content">
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                <h2 class="text-3xl font-bold">All Services</h2>
+                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-4 md:mt-0">
+                    <div class="relative">
+                        <input type="text" placeholder="Search services..."
+                               class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
                     </div>
-                </div>
-
-                <!-- Service Categories Tabs -->
-                <div class="mb-8 border-b border-gray-200">
-                    <div class="flex flex-wrap -mb-px">
-                        <button class="tab-button active mr-8 py-4 px-1 text-sm font-medium" data-category="all">
-                            All Services
-                        </button>
-                        <button class="tab-button mr-8 py-4 px-1 text-sm font-medium" data-category="home">
-                            <i class="fas fa-home mr-2"></i> Home Services
-                        </button>
-                        <button class="tab-button mr-8 py-4 px-1 text-sm font-medium" data-category="auto">
-                            <i class="fas fa-car mr-2"></i> Auto Services
-                        </button>
-                        <button class="tab-button mr-8 py-4 px-1 text-sm font-medium" data-category="tech">
-                            <i class="fas fa-laptop-code mr-2"></i> Tech Support
-                        </button>
-                        <button class="tab-button mr-8 py-4 px-1 text-sm font-medium" data-category="childcare">
-                            <i class="fas fa-child mr-2"></i> Child Care
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Services Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Service Card 1 -->
-                    <div class="service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition">
-                        <div class="h-40 bg-blue-100 flex items-center justify-center">
-                            <i class="fas fa-tools text-4xl text-blue-600"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-semibold">Handyman Services</h3>
-                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Home</span>
-                            </div>
-                            <p class="text-gray-600 mb-4">General home repairs, furniture assembly, and more. Available for all your household needs.</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <i class="fas fa-star text-yellow-400 mr-1"></i>
-                                    <span class="font-medium">4.8</span>
-                                    <span class="text-gray-500 text-sm ml-1">(24)</span>
-                                </div>
-                                <span class="font-bold">$45/hr</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Service Card 2 -->
-                    <div class="service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition">
-                        <div class="h-40 bg-purple-100 flex items-center justify-center">
-                            <i class="fas fa-laptop text-4xl text-purple-600"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-semibold">Computer Repair</h3>
-                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">Tech</span>
-                            </div>
-                            <p class="text-gray-600 mb-4">Virus removal, hardware upgrades, and software installation. Fast and reliable service.</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <i class="fas fa-star text-yellow-400 mr-1"></i>
-                                    <span class="font-medium">4.9</span>
-                                    <span class="text-gray-500 text-sm ml-1">(36)</span>
-                                </div>
-                                <span class="font-bold">$60/hr</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Service Card 3 -->
-                    <div class="service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition">
-                        <div class="h-40 bg-green-100 flex items-center justify-center">
-                            <i class="fas fa-baby text-4xl text-green-600"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-semibold">Babysitting</h3>
-                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Childcare</span>
-                            </div>
-                            <p class="text-gray-600 mb-4">Experienced childcare with CPR certification. Flexible hours available.</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <i class="fas fa-star text-yellow-400 mr-1"></i>
-                                    <span class="font-medium">4.7</span>
-                                    <span class="text-gray-500 text-sm ml-1">(18)</span>
-                                </div>
-                                <span class="font-bold">$20/hr</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Service Card 4 -->
-                    <div class="service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition">
-                        <div class="h-40 bg-red-100 flex items-center justify-center">
-                            <i class="fas fa-dumbbell text-4xl text-red-600"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-semibold">Personal Training</h3>
-                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">Fitness</span>
-                            </div>
-                            <p class="text-gray-600 mb-4">Customized workout plans and nutrition guidance to help you reach your fitness goals.</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <i class="fas fa-star text-yellow-400 mr-1"></i>
-                                    <span class="font-medium">4.6</span>
-                                    <span class="text-gray-500 text-sm ml-1">(32)</span>
-                                </div>
-                                <span class="font-bold">$50/hr</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Service Card 5 -->
-                    <div class="service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition">
-                        <div class="h-40 bg-yellow-100 flex items-center justify-center">
-                            <i class="fas fa-car text-4xl text-yellow-600"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-semibold">Auto Detailing</h3>
-                                <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Auto</span>
-                            </div>
-                            <p class="text-gray-600 mb-4">Professional interior and exterior cleaning to make your car look like new.</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <i class="fas fa-star text-yellow-400 mr-1"></i>
-                                    <span class="font-medium">4.8</span>
-                                    <span class="text-gray-500 text-sm ml-1">(27)</span>
-                                </div>
-                                <span class="font-bold">$75/session</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Service Card 6 -->
-                    <div class="service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition">
-                        <div class="h-40 bg-indigo-100 flex items-center justify-center">
-                            <i class="fas fa-paint-brush text-4xl text-indigo-600"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-semibold">Graphic Design</h3>
-                                <span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded">Creative</span>
-                            </div>
-                            <p class="text-gray-600 mb-4">Logo design, branding, and marketing materials for your business or personal projects.</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <i class="fas fa-star text-yellow-400 mr-1"></i>
-                                    <span class="font-medium">4.9</span>
-                                    <span class="text-gray-500 text-sm ml-1">(41)</span>
-                                </div>
-                                <span class="font-bold">$65/hr</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pagination -->
-                <div class="flex justify-center mt-10">
-                    <nav class="inline-flex rounded-md shadow">
-                        <a href="#" class="px-3 py-2 rounded-l-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
-                            Previous
-                        </a>
-                        <a href="#" class="px-3 py-2 border-t border-b border-gray-300 bg-white text-blue-600 font-medium">
-                            1
-                        </a>
-                        <a href="#" class="px-3 py-2 border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
-                            2
-                        </a>
-                        <a href="#" class="px-3 py-2 border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
-                            3
-                        </a>
-                        <a href="#" class="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
-                            Next
-                        </a>
-                    </nav>
+                    <select class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>All Categories</option>
+                        <option>Home Services</option>
+                        <option>Auto Services</option>
+                        <option>Tech Support</option>
+                        <option>Child Care</option>
+                        <option>Fitness</option>
+                        <option>Creative</option>
+                        <option>Pet Care</option>
+                        <option>Food Services</option>
+                        <option>Gardening</option>
+                    </select>
                 </div>
             </div>
-        </section>
-    </div>
 
-    <!-- How It Works Tab Content -->
-    <div id="how-it-works" class="tab-content">
-        <section class="py-16 bg-white">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-bold text-center mb-12">How ConnectServe Works</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="text-center p-6 rounded-xl hover:bg-gray-50 transition">
-                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-map-marker-alt text-blue-600 text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-3">1. Set Your Location</h3>
-                        <p class="text-gray-600">Allow us to access your location or enter your address to find services nearby.</p>
-                    </div>
-                    <div class="text-center p-6 rounded-xl hover:bg-gray-50 transition">
-                        <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-tasks text-purple-600 text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-3">2. Browse or List Services</h3>
-                        <p class="text-gray-600">Find the service you need or list what you can offer to your community.</p>
-                    </div>
-                    <div class="text-center p-6 rounded-xl hover:bg-gray-50 transition">
-                        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-handshake text-green-600 text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-3">3. Connect & Collaborate</h3>
-                        <p class="text-gray-600">Message directly with service providers or seekers and arrange the details.</p>
-                    </div>
-                </div>
-
-                <div class="mt-16 max-w-4xl mx-auto">
-                    <h3 class="text-2xl font-semibold mb-6">Frequently Asked Questions</h3>
-                    <div class="space-y-4">
-                        <div class="border-b border-gray-200 pb-4">
-                            <button class="flex justify-between items-center w-full text-left">
-                                <span class="font-medium">How do I find services near me?</span>
-                                <i class="fas fa-chevron-down text-gray-400"></i>
-                            </button>
-                            <div class="mt-2 text-gray-600">
-                                Simply allow location access or enter your address, and we'll show you all available services in your area. You can filter by category, price, or rating to find exactly what you need.
-                            </div>
-                        </div>
-                        <div class="border-b border-gray-200 pb-4">
-                            <button class="flex justify-between items-center w-full text-left">
-                                <span class="font-medium">How do I offer my services?</span>
-                                <i class="fas fa-chevron-down text-gray-400"></i>
-                            </button>
-                            <div class="mt-2 text-gray-600">
-                                Click on the "Offer Services" button, fill out your service details, set your availability and pricing, and submit. Once approved, your service will be visible to potential customers.
-                            </div>
-                        </div>
-                        <div class="border-b border-gray-200 pb-4">
-                            <button class="flex justify-between items-center w-full text-left">
-                                <span class="font-medium">Is there a fee to use ConnectServe?</span>
-                                <i class="fas fa-chevron-down text-gray-400"></i>
-                            </button>
-                            <div class="mt-2 text-gray-600">
-                                Finding and browsing services is completely free. For service providers, we charge a small commission only when you successfully complete a job through our platform.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- About Tab Content -->
-    <div id="about" class="tab-content">
-        <section class="py-16 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="max-w-4xl mx-auto">
-                    <h2 class="text-3xl font-bold text-center mb-12">About ConnectServe</h2>
-                    <div class="prose prose-lg text-gray-600">
-                        <p class="mb-6">
-                            ConnectServe was founded in 2020 with a simple mission: to connect people who need services with those who can provide them, all within their local community. We believe in supporting local economies and making it easier for people to find trustworthy service providers.
-                        </p>
-                        <p class="mb-6">
-                            Our platform brings together a wide range of services - from home repairs and tech support to childcare and fitness training. Whether you're looking for help with a specific task or want to offer your skills to others, ConnectServe makes the process simple and secure.
-                        </p>
-                        <h3 class="text-xl font-semibold mb-4">Our Values</h3>
-                        <ul class="mb-6 list-disc pl-6">
-                            <li class="mb-2"><strong>Community First:</strong> We prioritize local connections and community building.</li>
-                            <li class="mb-2"><strong>Trust & Safety:</strong> All providers are verified to ensure quality and reliability.</li>
-                            <li class="mb-2"><strong>Transparency:</strong> Clear pricing and honest reviews help you make informed decisions.</li>
-                            <li class="mb-2"><strong>Accessibility:</strong> Services for everyone, regardless of technical expertise.</li>
-                        </ul>
-                        <h3 class="text-xl font-semibold mb-4">Meet the Team</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                            <div class="text-center">
-                                <div class="w-32 h-32 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                                    <i class="fas fa-user text-4xl text-blue-600"></i>
-                                </div>
-                                <h4 class="font-semibold">Ashish Jain</h4>
-                                <p class="text-gray-500">CEO & Founder</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="w-32 h-32 bg-purple-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                                    <i class="fas fa-user text-4xl text-purple-600"></i>
-                                </div>
-                                <h4 class="font-semibold">Sonam Jain</h4>
-                                <p class="text-gray-500">CTO</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="w-32 h-32 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                                    <i class="fas fa-user text-4xl text-green-600"></i>
-                                </div>
-                                <h4 class="font-semibold">Sonam Jain</h4>
-                                <p class="text-gray-500">Head of Community</p>
-                            </div>
-                        </div>
-                        <p>
-                            Have questions or feedback? We'd love to hear from you! Contact our support team at <a href="mailto:support@connectserve.com" class="text-blue-600 hover:underline">support@connectserve.com</a>.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Service Offer Modal -->
-    <div id="serviceOfferModal" class="service-offer-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hide">
-        <div class="bg-white rounded-xl max-w-md w-full mx-4 overflow-hidden transform transition-all duration-300">
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-2xl font-bold">Offer Your Services</h3>
-                    <button id="closeServiceOfferModal" class="text-gray-500 hover:text-gray-700">
-                        <i class="fas fa-times"></i>
+            <!-- Service Categories Tabs -->
+            <div class="mb-8 border-b border-gray-200">
+                <div class="flex flex-wrap -mb-px">
+                    <button class="tab-button active mr-8 py-4 px-1 text-sm font-medium" data-category="all">
+                        All Services
+                    </button>
+                    <button class="tab-button mr-8 py-4 px-1 text-sm font-medium" data-category="home">
+                        <i class="fas fa-home mr-2"></i> Home Services
+                    </button>
+                    <button class="tab-button mr-8 py-4 px-1 text-sm font-medium" data-category="auto">
+                        <i class="fas fa-car mr-2"></i> Auto Services
+                    </button>
+                    <button class="tab-button mr-8 py-4 px-1 text-sm font-medium" data-category="tech">
+                        <i class="fas fa-laptop-code mr-2"></i> Tech Support
+                    </button>
+                    <button class="tab-button mr-8 py-4 px-1 text-sm font-medium" data-category="childcare">
+                        <i class="fas fa-child mr-2"></i> Child Care
                     </button>
                 </div>
+            </div>
 
-                <div class="mb-6">
-                    <div class="flex flex-col space-y-4">
-                        <div>
-                            <label for="serviceType" class="block text-sm font-medium text-gray-700 mb-1">Service Type</label>
-                            <select id="serviceType" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Select a service type</option>
-                                <option value="home">Home Services</option>
-                                <option value="auto">Auto Services</option>
-                                <option value="tech">Tech Support</option>
-                                <option value="childcare">Child Care</option>
-                                <option value="fitness">Fitness</option>
-                                <option value="creative">Creative</option>
-                                <option value="petcare">Pet Care</option>
-                                <option value="food">Food Services</option>
-                                <option value="gardening">Gardening</option>
-                                <option value="other">Other</option>
-                            </select>
+            <!-- Services Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Service Card 1 -->
+                <div class="service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition">
+                    <div class="h-40 bg-blue-100 flex items-center justify-center">
+                        <i class="fas fa-tools text-4xl text-blue-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold">Handyman Services</h3>
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Home</span>
                         </div>
-
-                        <div>
-                            <label for="serviceTitle" class="block text-sm font-medium text-gray-700 mb-1">Service Title</label>
-                            <input type="text" id="serviceTitle" placeholder="e.g. Professional Handyman Services" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
-
-                        <div>
-                            <label for="serviceDescription" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                            <textarea id="serviceDescription" rows="3" placeholder="Describe your service in detail..." class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label for="serviceRate" class="block text-sm font-medium text-gray-700 mb-1">Rate</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <span class="text-gray-500">$</span>
-                                    </div>
-                                    <input type="number" id="serviceRate" placeholder="0.00" class="w-full pl-7 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                        <span class="text-gray-500">/hr</span>
-                                    </div>
-                                </div>
+                        <p class="text-gray-600 mb-4">General home repairs, furniture assembly, and more. Available for
+                            all your household needs.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <span class="font-medium">4.8</span>
+                                <span class="text-gray-500 text-sm ml-1">(24)</span>
                             </div>
-                            <div>
-                                <label for="serviceExperience" class="block text-sm font-medium text-gray-700 mb-1">Experience</label>
-                                <select id="serviceExperience" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    <option value="beginner">Beginner</option>
-                                    <option value="intermediate">1-3 years</option>
-                                    <option value="experienced">3-5 years</option>
-                                    <option value="expert">5+ years</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Availability</label>
-                            <div class="grid grid-cols-3 gap-2">
-                                <label class="inline-flex items-center">
-                                    <input type="checkbox" class="rounded text-blue-600 focus:ring-blue-500">
-                                    <span class="ml-2 text-sm">Weekdays</span>
-                                </label>
-                                <label class="inline-flex items-center">
-                                    <input type="checkbox" class="rounded text-blue-600 focus:ring-blue-500">
-                                    <span class="ml-2 text-sm">Weekends</span>
-                                </label>
-                                <label class="inline-flex items-center">
-                                    <input type="checkbox" class="rounded text-blue-600 focus:ring-blue-500">
-                                    <span class="ml-2 text-sm">Evenings</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="serviceLocation" class="block text-sm font-medium text-gray-700 mb-1">Service Area</label>
-                            <div class="flex">
-                                <input type="text" id="serviceLocation" placeholder="Enter your service area" class="flex-1 px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <button id="detectServiceLocation" class="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition">
-                                    <i class="fas fa-location-arrow"></i>
-                                </button>
-                            </div>
+                            <span class="font-bold">$45/hr</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex justify-between">
-                    <button id="cancelServiceOffer" class="px-4 py-2 border rounded-lg hover:bg-gray-100 transition">Cancel</button>
-                    <button id="submitServiceOffer" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center">
-                        <i class="fas fa-paper-plane mr-2"></i> Submit Offer
-                    </button>
+                <!-- Service Card 2 -->
+                <div class="service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition">
+                    <div class="h-40 bg-purple-100 flex items-center justify-center">
+                        <i class="fas fa-laptop text-4xl text-purple-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold">Computer Repair</h3>
+                            <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">Tech</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Virus removal, hardware upgrades, and software installation. Fast
+                            and reliable service.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <span class="font-medium">4.9</span>
+                                <span class="text-gray-500 text-sm ml-1">(36)</span>
+                            </div>
+                            <span class="font-bold">$60/hr</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition">
+                    <div class="h-40 bg-green-100 flex items-center justify-center">
+                        <i class="fas fa-baby text-4xl text-green-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold">Babysitting</h3>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Childcare</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Experienced childcare with CPR certification. Flexible hours
+                            available.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <span class="font-medium">4.7</span>
+                                <span class="text-gray-500 text-sm ml-1">(18)</span>
+                            </div>
+                            <span class="font-bold">$20/hr</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition">
+                    <div class="h-40 bg-red-100 flex items-center justify-center">
+                        <i class="fas fa-dumbbell text-4xl text-red-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold">Personal Training</h3>
+                            <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">Fitness</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Customized workout plans and nutrition guidance to help you reach
+                            your fitness goals.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <span class="font-medium">4.6</span>
+                                <span class="text-gray-500 text-sm ml-1">(32)</span>
+                            </div>
+                            <span class="font-bold">$50/hr</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 5 -->
+                <div class="service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition">
+                    <div class="h-40 bg-yellow-100 flex items-center justify-center">
+                        <i class="fas fa-car text-4xl text-yellow-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold">Auto Detailing</h3>
+                            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Auto</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Professional interior and exterior cleaning to make your car look
+                            like new.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <span class="font-medium">4.8</span>
+                                <span class="text-gray-500 text-sm ml-1">(27)</span>
+                            </div>
+                            <span class="font-bold">$75/session</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 6 -->
+                <div class="service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition">
+                    <div class="h-40 bg-indigo-100 flex items-center justify-center">
+                        <i class="fas fa-paint-brush text-4xl text-indigo-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold">Graphic Design</h3>
+                            <span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded">Creative</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Logo design, branding, and marketing materials for your business
+                            or personal projects.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <span class="font-medium">4.9</span>
+                                <span class="text-gray-500 text-sm ml-1">(41)</span>
+                            </div>
+                            <span class="font-bold">$65/hr</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex justify-center mt-10">
+                <nav class="inline-flex rounded-md shadow">
+                    <a href="#"
+                       class="px-3 py-2 rounded-l-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                        Previous
+                    </a>
+                    <a href="#" class="px-3 py-2 border-t border-b border-gray-300 bg-white text-blue-600 font-medium">
+                        1
+                    </a>
+                    <a href="#" class="px-3 py-2 border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                        2
+                    </a>
+                    <a href="#" class="px-3 py-2 border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                        3
+                    </a>
+                    <a href="#"
+                       class="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                        Next
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- How It Works Tab Content -->
+<div id="how-it-works" class="tab-content">
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">How ConnectServe Works</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6 rounded-xl hover:bg-gray-50 transition">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-map-marker-alt text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">1. Set Your Location</h3>
+                    <p class="text-gray-600">Allow us to access your location or enter your address to find services
+                        nearby.</p>
+                </div>
+                <div class="text-center p-6 rounded-xl hover:bg-gray-50 transition">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-tasks text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">2. Browse or List Services</h3>
+                    <p class="text-gray-600">Find the service you need or list what you can offer to your community.</p>
+                </div>
+                <div class="text-center p-6 rounded-xl hover:bg-gray-50 transition">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-handshake text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">3. Connect & Collaborate</h3>
+                    <p class="text-gray-600">Message directly with service providers or seekers and arrange the
+                        details.</p>
+                </div>
+            </div>
+
+            <div class="mt-16 max-w-4xl mx-auto">
+                <h3 class="text-2xl font-semibold mb-6">Frequently Asked Questions</h3>
+                <div class="space-y-4">
+                    <div class="border-b border-gray-200 pb-4">
+                        <button class="flex justify-between items-center w-full text-left">
+                            <span class="font-medium">How do I find services near me?</span>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </button>
+                        <div class="mt-2 text-gray-600">
+                            Simply allow location access or enter your address, and we'll show you all available
+                            services in your area. You can filter by category, price, or rating to find exactly what you
+                            need.
+                        </div>
+                    </div>
+                    <div class="border-b border-gray-200 pb-4">
+                        <button class="flex justify-between items-center w-full text-left">
+                            <span class="font-medium">How do I offer my services?</span>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </button>
+                        <div class="mt-2 text-gray-600">
+                            Click on the "Offer Services" button, fill out your service details, set your availability
+                            and pricing, and submit. Once approved, your service will be visible to potential customers.
+                        </div>
+                    </div>
+                    <div class="border-b border-gray-200 pb-4">
+                        <button class="flex justify-between items-center w-full text-left">
+                            <span class="font-medium">Is there a fee to use ConnectServe?</span>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </button>
+                        <div class="mt-2 text-gray-600">
+                            Finding and browsing services is completely free. For service providers, we charge a small
+                            commission only when you successfully complete a job through our platform.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+</div>
 
-    <!-- Success Toast -->
+<!-- About Tab Content -->
+<div id="about" class="tab-content">
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12">About ConnectServe</h2>
+                <div class="prose prose-lg text-gray-600">
+                    <p class="mb-6">
+                        ConnectServe was founded in 2020 with a simple mission: to connect people who need services with
+                        those who can provide them, all within their local community. We believe in supporting local
+                        economies and making it easier for people to find trustworthy service providers.
+                    </p>
+                    <p class="mb-6">
+                        Our platform brings together a wide range of services - from home repairs and tech support to
+                        childcare and fitness training. Whether you're looking for help with a specific task or want to
+                        offer your skills to others, ConnectServe makes the process simple and secure.
+                    </p>
+                    <h3 class="text-xl font-semibold mb-4">Our Values</h3>
+                    <ul class="mb-6 list-disc pl-6">
+                        <li class="mb-2"><strong>Community First:</strong> We prioritize local connections and community
+                            building.
+                        </li>
+                        <li class="mb-2"><strong>Trust & Safety:</strong> All providers are verified to ensure quality
+                            and reliability.
+                        </li>
+                        <li class="mb-2"><strong>Transparency:</strong> Clear pricing and honest reviews help you make
+                            informed decisions.
+                        </li>
+                        <li class="mb-2"><strong>Accessibility:</strong> Services for everyone, regardless of technical
+                            expertise.
+                        </li>
+                    </ul>
+                    <h3 class="text-xl font-semibold mb-4">Meet the Team</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="text-center">
+                            <div class="w-32 h-32 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                                <i class="fas fa-user text-4xl text-blue-600"></i>
+                            </div>
+                            <h4 class="font-semibold">Ashish Jain</h4>
+                            <p class="text-gray-500">CEO & Founder</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-32 h-32 bg-purple-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                                <i class="fas fa-user text-4xl text-purple-600"></i>
+                            </div>
+                            <h4 class="font-semibold">Sonam Jain</h4>
+                            <p class="text-gray-500">CTO</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-32 h-32 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                                <i class="fas fa-user text-4xl text-green-600"></i>
+                            </div>
+                            <h4 class="font-semibold">Sonam Jain</h4>
+                            <p class="text-gray-500">Head of Community</p>
+                        </div>
+                    </div>
+                    <p>
+                        Have questions or feedback? We'd love to hear from you! Contact our support team at <a
+                            href="mailto:support@connectserve.com" class="text-blue-600 hover:underline">support@connectserve.com</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Service Offer Modal -->
+    <div id="serviceOfferModal" class="service-offer-modal">
+        <div class="bg-white rounded-xl max-w-md w-full mx-4 overflow-hidden transform transition-all duration-300 max-h-[90vh] overflow-y-auto">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold">Offer Your Services</h3>
+                <button id="closeServiceOfferModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="serviceOfferForm">
+            <div class="mb-6">
+                <div class="flex flex-col space-y-4">
+                    <div>
+                                <label for="serviceType" class="block text-sm font-medium text-gray-700 mb-1">Service Type</label>
+                                <select id="serviceType" required
+                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">Select a service type</option>
+                            <option value="home">Home Services</option>
+                            <option value="auto">Auto Services</option>
+                            <option value="tech">Tech Support</option>
+                            <option value="childcare">Child Care</option>
+                            <option value="fitness">Fitness</option>
+                            <option value="creative">Creative</option>
+                            <option value="petcare">Pet Care</option>
+                            <option value="food">Food Services</option>
+                            <option value="gardening">Gardening</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div>
+                                <label for="serviceTitle" class="block text-sm font-medium text-gray-700 mb-1">Service Title</label>
+                                <input type="text" id="serviceTitle" required placeholder="e.g. Professional Handyman Services"
+                               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <div>
+                        <label for="serviceDescription"
+                               class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                                <textarea id="serviceDescription" required rows="3" placeholder="Describe your service in detail..."
+                                  class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    </div>
+
+                            <!-- Image Upload Section -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Service Images</label>
+                                <div id="uploadArea" class="upload-area">
+                                    <i class="fas fa-cloud-upload-alt text-3xl text-blue-500 mb-2"></i>
+                                    <p class="text-sm text-gray-600">Drag & drop your images here or click to browse</p>
+                                    <p class="text-xs text-gray-500 mt-1">Supports JPG, PNG (Max 5MB each)</p>
+                                    <input type="file" id="fileInput" class="hidden" accept="image/*" multiple>
+                                </div>
+                                <div id="progressContainer" class="hidden">
+                                    <p class="text-sm text-gray-600 mt-2">Uploading: <span id="uploadingFileName"></span></p>
+                                    <div class="progress-bar">
+                                        <div id="progressBarFill" class="progress-bar-fill"></div>
+                                    </div>
+                                </div>
+                                <div id="imagePreviews" class="image-preview-container"></div>
+                            </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="serviceRate" class="block text-sm font-medium text-gray-700 mb-1">Rate</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500">$</span>
+                                </div>
+                                        <input type="number" id="serviceRate" required placeholder="0.00"
+                                       class="w-full pl-7 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500">/hr</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="serviceExperience" class="block text-sm font-medium text-gray-700 mb-1">Experience</label>
+                                    <select id="serviceExperience" required
+                                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">1-3 years</option>
+                                <option value="experienced">3-5 years</option>
+                                <option value="expert">5+ years</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Availability</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <label class="inline-flex items-center">
+                                        <input type="checkbox" name="availability" value="weekdays" class="rounded text-blue-600 focus:ring-blue-500">
+                                <span class="ml-2 text-sm">Weekdays</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                        <input type="checkbox" name="availability" value="weekends" class="rounded text-blue-600 focus:ring-blue-500">
+                                <span class="ml-2 text-sm">Weekends</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                        <input type="checkbox" name="availability" value="evenings" class="rounded text-blue-600 focus:ring-blue-500">
+                                <span class="ml-2 text-sm">Evenings</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                                <label for="serviceLocation" class="block text-sm font-medium text-gray-700 mb-1">Service Area</label>
+                        <div class="flex">
+                                    <input type="text" id="serviceLocation" required placeholder="Enter your service area"
+                                   class="flex-1 px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <button id="detectServiceLocation" type="button"
+                                    class="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition">
+                                <i class="fas fa-location-arrow"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                    <div class="flex justify-end space-x-3">
+                        <button id="cancelServiceOffer" type="button" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+                    Cancel
+                </button>
+                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                            Submit Offer
+                </button>
+            </div>
+                </form>
+        </div>
+    </div>
+</div>
+
+<!-- Success Toast -->
     <div id="successToast" class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center hidden">
         <i class="fas fa-check-circle mr-2"></i>
         <span id="toastMessage">Service offer submitted successfully!</span>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <i class="fas fa-hands-helping text-2xl"></i>
-                        <span class="text-xl font-bold">ConnectServe</span>
-                    </div>
-                    <p class="text-gray-400">Connecting communities through local services.</p>
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center space-x-2 mb-4">
+                    <i class="fas fa-hands-helping text-2xl"></i>
+                    <span class="text-xl font-bold">ConnectServe</span>
                 </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Company</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">About Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Careers</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Press</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Blog</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Support</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Help Center</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Safety</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Community Guidelines</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Stay Connected</h4>
-                    <div class="flex space-x-4 mb-4">
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-400 transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-600 transition">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transition">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
-                    <p class="text-gray-400">Download our app</p>
-                    <div class="flex space-x-2 mt-2">
-                        <button class="px-3 py-1 bg-gray-800 rounded flex items-center">
-                            <i class="fab fa-apple mr-1"></i> App Store
-                        </button>
-                        <button class="px-3 py-1 bg-gray-800 rounded flex items-center">
-                            <i class="fab fa-google-play mr-1"></i> Play Store
-                        </button>
-                    </div>
-                </div>
+                <p class="text-gray-400">Connecting communities through local services.</p>
             </div>
-            <div class="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2023 ConnectServe. All rights reserved.</p>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-white text-sm transition">Privacy Policy</a>
-                    <a href="#" class="text-gray-400 hover:text-white text-sm transition">Terms of Service</a>
-                    <a href="#" class="text-gray-400 hover:text-white text-sm transition">Cookie Policy</a>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Company</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Press</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Support</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Help Center</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Safety</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Community Guidelines</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Stay Connected</h4>
+                <div class="flex space-x-4 mb-4">
+                    <a href="#"
+                       class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#"
+                       class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-400 transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#"
+                       class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-600 transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#"
+                       class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transition">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+                <p class="text-gray-400">Download our app</p>
+                <div class="flex space-x-2 mt-2">
+                    <button class="px-3 py-1 bg-gray-800 rounded flex items-center">
+                        <i class="fab fa-apple mr-1"></i> App Store
+                    </button>
+                    <button class="px-3 py-1 bg-gray-800 rounded flex items-center">
+                        <i class="fab fa-google-play mr-1"></i> Play Store
+                    </button>
                 </div>
             </div>
         </div>
-    </footer>
+        <div class="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2023 ConnectServe. All rights reserved.</p>
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-400 hover:text-white text-sm transition">Privacy Policy</a>
+                <a href="#" class="text-gray-400 hover:text-white text-sm transition">Terms of Service</a>
+                <a href="#" class="text-gray-400 hover:text-white text-sm transition">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
 
-    <script>
-        // Mock API endpoint for nearby services
-        const BASE_URL = 'https://l6a1uu55te.execute-api.ap-south-1.amazonaws.com/service-stage'
-        const USER_API_URL = BASE_URL+'/v1/user'
-        const PROVIDER_API_URL = BASE_URL+'/v1/provider';
-        const AUTH_API_URL = BASE_URL+'/v1/auth';
-        var user_id;
-        var lat;
-        var lng;
+<script>
+    // Mock API endpoint for nearby services
+    const BASE_URL = 'https://l6a1uu55te.execute-api.ap-south-1.amazonaws.com/service-stage/v1'
+    //const BASE_URL = 'http://localhost:8080/v1'
+    const USER_API_URL = BASE_URL + '/user'
+    const PROVIDER_API_URL = BASE_URL + '/provider';
+    const AUTH_API_URL = BASE_URL + '/auth';
+    var user_id;
+    var lat;
+    var lng;
 
-        // Tab switching functionality
-        const tabs = document.querySelectorAll('[data-tab]');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', (e) => {
-                e.preventDefault();
-
-                // Remove active class from all tabs
-                tabs.forEach(t => t.classList.remove('active'));
-
-                // Add active class to clicked tab
-                tab.classList.add('active');
-
-                // Hide all tab contents
-                document.querySelectorAll('.tab-content').forEach(content => {
-                    content.classList.remove('active');
-                });
-
-                // Show the selected tab content
-                const tabId = tab.getAttribute('data-tab');
-                document.getElementById(tabId).classList.add('active');
-
-                // Scroll to top
-                window.scrollTo(0, 0);
-            });
-        });
-
-        // Service category tabs
-        const categoryTabs = document.querySelectorAll('.tab-button');
-
-        categoryTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Remove active class from all category tabs
-                categoryTabs.forEach(t => t.classList.remove('active'));
-
-                // Add active class to clicked tab
-                tab.classList.add('active');
-
-                // Here you would normally filter services based on category
-                // For this demo, we're just changing the active tab style
-            });
-        });
-
-        // Service Offer Modal functionality
-        const offerServicesBtn = document.getElementById('offerServicesBtn');
-        const serviceOfferModal = document.getElementById('serviceOfferModal');
-        const closeServiceOfferModal = document.getElementById('closeServiceOfferModal');
-        const cancelServiceOffer = document.getElementById('cancelServiceOffer');
-        const submitServiceOffer = document.getElementById('submitServiceOffer');
-        const detectServiceLocation = document.getElementById('detectServiceLocation');
-        const successToast = document.getElementById('successToast');
-        const toastMessage = document.getElementById('toastMessage');
-
-        // Show service offer modal
-        offerServicesBtn.addEventListener('click', () => {
-            if(!user_id){
-                enableLogin();
-                return;
-            }
-            serviceOfferModal.classList.remove('hide');
-            serviceOfferModal.classList.add('show');
-        });
-
-        // Hide service offer modal
-        const hideServiceOfferModal = () => {
-            serviceOfferModal.classList.remove('show');
-            serviceOfferModal.classList.add('hide');
+    const AWS_CONFIG = {
+            region: 'ap-south-1',
+            bucketName: 'sprovider-images'
         };
+    // Variables to track uploaded files
+        let selectedFiles = [];
+        let uploadedImageUrls = [];
 
-        closeServiceOfferModal.addEventListener('click', hideServiceOfferModal);
-        cancelServiceOffer.addEventListener('click', hideServiceOfferModal);
+        // Initialize AWS SDK (would normally be loaded from AWS SDK)
+        // In a real app, you would use AWS SDK properly and not expose credentials in frontend
+        // This is a simplified example for demonstration
+        function initializeAWS() {
+            // Normally you would use AWS SDK properly with proper authentication
+            // This is just a placeholder for the demo
+            console.log('AWS would be initialized here with proper credentials');
+        }
 
-        // Detect location for service offer
-        detectServiceLocation.addEventListener('click', () => {
-            detectServiceLocation.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-            detectServiceLocation.disabled = true;
+    // Tab switching functionality
+    const tabs = document.querySelectorAll('[data-tab]');
 
-            // Simulate location detection
-            locationFinder();
-            document.getElementById('serviceLocation').value = "Within 5 km of your location";
-            detectServiceLocation.innerHTML = '<i class="fas fa-check"></i>';
-            detectServiceLocation.innerHTML = '<i class="fas fa-location-arrow"></i>';
-            detectServiceLocation.disabled = false;
+    tabs.forEach(tab => {
+        tab.addEventListener('click', (e) => {
+            e.preventDefault();
 
+            // Remove active class from all tabs
+            tabs.forEach(t => t.classList.remove('active'));
+
+            // Add active class to clicked tab
+            tab.classList.add('active');
+
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Show the selected tab content
+            const tabId = tab.getAttribute('data-tab');
+            document.getElementById(tabId).classList.add('active');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        });
+    });
+
+    // Service category tabs
+    const categoryTabs = document.querySelectorAll('.tab-button');
+
+    categoryTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all category tabs
+            categoryTabs.forEach(t => t.classList.remove('active'));
+
+            // Add active class to clicked tab
+            tab.classList.add('active');
+
+            // Here you would normally filter services based on category
+            // For this demo, we're just changing the active tab style
+        });
+    });
+    const openServiceOfferModal = document.getElementById('openServiceOfferModal');
+    const closeServiceOfferModal = document.getElementById('closeServiceOfferModal');
+    const serviceOfferModal = document.getElementById('serviceOfferModal');
+    const serviceOfferForm = document.getElementById('serviceOfferForm');
+    const cancelServiceOffer = document.getElementById('cancelServiceOffer');
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const imagePreviews = document.getElementById('imagePreviews');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBarFill = document.getElementById('progressBarFill');
+    const uploadingFileName = document.getElementById('uploadingFileName');
+
+    // Service Offer Modal functionality
+    const offerServicesBtn = document.getElementById('offerServicesBtn');
+    const submitServiceOffer = document.getElementById('submitServiceOffer');
+    const detectServiceLocation = document.getElementById('detectServiceLocation');
+    const successToast = document.getElementById('successToast');
+    const toastMessage = document.getElementById('toastMessage');
+
+
+
+    /*openServiceOfferModal.addEventListener('click', () => {
+            serviceOfferModal.classList.add('active');
+        });*/
+    // Click on upload area to trigger file input
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
         });
 
-        // Submit service offer
-        submitServiceOffer.addEventListener('click', () => {
-            const serviceType = document.getElementById('serviceType').value;
-            const serviceTitle = document.getElementById('serviceTitle').value;
-            const serviceDescription = document.getElementById('serviceDescription').value;
-            const serviceRate = document.getElementById('serviceRate').value;
-            const serviceExperience = document.getElementById('serviceExperience').value;
-            const serviceLocation = document.getElementById('serviceLocation').value;
+        // Handle drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('active');
+        });
 
-            if (!serviceType || !serviceTitle) {
-                toastMessage.textContent = "Please fill in all required fields";
-                successToast.className = successToast.className.replace('bg-green-500', 'bg-red-500');
-                successToast.classList.remove('hidden');
-                setTimeout(() => {
-                    successToast.classList.add('hidden');
-                    successToast.className = successToast.className.replace('bg-red-500', 'bg-green-500');
-                }, 3000);
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('active');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('active');
+
+            if (e.dataTransfer.files.length) {
+                handleFiles(e.dataTransfer.files);
+            }
+        });
+
+        // Handle file selection
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                handleFiles(e.target.files);
+            }
+        });
+
+        // Process selected files
+        function handleFiles(files) {
+            // Clear previous selections
+            selectedFiles = [];
+            imagePreviews.innerHTML = '';
+
+            // Filter only image files and limit to 5
+            const imageFiles = Array.from(files).filter(file =>
+                file.type.startsWith('image/') && file.size <= 5 * 1024 * 1024
+            ).slice(0, 5);
+
+            if (imageFiles.length === 0) {
+                alert('Please select valid image files (JPG, PNG) under 5MB each.');
                 return;
             }
 
-            // Show loading state on button
-            submitServiceOffer.innerHTML = '<span class="loading-spinner mr-2"></span> Submitting...';
-            submitServiceOffer.disabled = true;
+            selectedFiles = imageFiles;
 
-            // Prepare service data
+            // Display previews
+            selectedFiles.forEach((file, index) => {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    const previewDiv = document.createElement('div');
+                    previewDiv.className = 'image-preview';
+                    previewDiv.innerHTML = `
+                        <img src="${e.target.result}" alt="Preview ${index + 1}">
+                        <div class="remove-image-btn" data-index="${index}">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    `;
+                    imagePreviews.appendChild(previewDiv);
+
+                    // Add click event to remove button
+                    previewDiv.querySelector('.remove-image-btn').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        removeImage(index);
+                    });
+                };
+
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Remove image from selection
+        function removeImage(index) {
+            selectedFiles.splice(index, 1);
+            renderImagePreviews();
+        }
+
+        // Re-render image previews after removal
+        function renderImagePreviews() {
+            imagePreviews.innerHTML = '';
+
+            if (selectedFiles.length === 0) {
+                return;
+            }
+
+            selectedFiles.forEach((file, index) => {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    const previewDiv = document.createElement('div');
+                    previewDiv.className = 'image-preview';
+                    previewDiv.innerHTML = `
+                        <img src="${e.target.result}" alt="Preview ${index + 1}">
+                        <div class="remove-image-btn" data-index="${index}">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    `;
+                    imagePreviews.appendChild(previewDiv);
+
+                    // Add click event to remove button
+                    previewDiv.querySelector('.remove-image-btn').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        removeImage(index);
+                    });
+                };
+
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Upload file to S3
+        async function uploadFileToS3(file) {
+            return new Promise((resolve, reject) => {
+                // In a real application, you would:
+                // 1. First request a pre-signed URL from your backend
+                // 2. Then use that URL to upload the file directly to S3
+
+                // This is a simplified mock implementation
+                console.log(`uploading file: ${file.name}`);
+
+                //const {url} = await getPresignedUrl(file.name, file.type);
+                fetch(BASE_URL + '/s3/presigned-url', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({fileName: file.name, contentType: file.type})
+                }).then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                    .then(data => {
+                        // Show success message
+                        fetch(data.url, {
+                            method: 'PUT',
+                            body: file,
+                            headers: {'Content-Type': file.type},
+                        });
+                    });
+
+                console.log('Upload successful!');
+
+                // Simulate upload progress
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 10;
+                    progressBarFill.style.width = `${progress}%`;
+                    uploadingFileName.textContent = file.name;
+
+                    if (progress >= 100) {
+                        clearInterval(interval);
+
+                        // Simulate successful upload
+                        setTimeout(() => {
+                            const mockUrl = `https://${AWS_CONFIG.bucketName}.s3.${AWS_CONFIG.region}.amazonaws.com/${file.name}`;
+                            resolve(mockUrl);
+                        }, 500);
+                    }
+                }, 200);
+            });
+        }
+
+        // Upload all selected files
+        async function uploadAllFiles() {
+            if (selectedFiles.length === 0) {
+                return [];
+            }
+
+            progressContainer.classList.remove('hidden');
+            uploadedImageUrls = [];
+
+            for (const file of selectedFiles) {
+                try {
+                    const url = await uploadFileToS3(file);
+                    uploadedImageUrls.push(url);
+                } catch (error) {
+                    console.error('Error uploading file:', error);
+                    // In a real app, you would handle this error appropriately
+                }
+            }
+
+            progressContainer.classList.add('hidden');
+            progressBarFill.style.width = '0%';
+
+            return uploadedImageUrls;
+        }
+
+        // Reset form
+        function resetForm() {
+            serviceOfferForm.reset();
+            selectedFiles = [];
+            uploadedImageUrls = [];
+            imagePreviews.innerHTML = '';
+            progressContainer.classList.add('hidden');
+            progressBarFill.style.width = '0%';
+        }
+
+    // Show service offer modal
+    offerServicesBtn.addEventListener('click', () => {
+        if (!localStorage.getItem('sessionActive')) {
+            enableLogin();
+            return;
+        }
+        serviceOfferModal.classList.add('active');
+        serviceOfferModal.classList.remove('hide');
+        serviceOfferModal.classList.add('show');
+    });
+
+    // Hide service offer modal
+    const hideServiceOfferModal = () => {
+        serviceOfferModal.classList.remove('show');
+        serviceOfferModal.classList.add('hide');
+    };
+
+    closeServiceOfferModal.addEventListener('click', hideServiceOfferModal);
+    cancelServiceOffer.addEventListener('click', hideServiceOfferModal);
+
+    // Detect location for service offer
+    detectServiceLocation.addEventListener('click', () => {
+        detectServiceLocation.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        detectServiceLocation.disabled = true;
+
+        // Simulate location detection
+        locationFinder();
+        document.getElementById('serviceLocation').value = "Within 5 km of your location";
+        detectServiceLocation.innerHTML = '<i class="fas fa-check"></i>';
+        detectServiceLocation.innerHTML = '<i class="fas fa-location-arrow"></i>';
+        detectServiceLocation.disabled = false;
+
+    });
+
+    // Submit service offer
+    serviceOfferForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = serviceOfferForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Submitting...';
+
+        const serviceType = document.getElementById('serviceType').value;
+        const serviceTitle = document.getElementById('serviceTitle').value;
+        const serviceDescription = document.getElementById('serviceDescription').value;
+        const serviceRate = document.getElementById('serviceRate').value;
+        const serviceExperience = document.getElementById('serviceExperience').value;
+        const serviceLocation = document.getElementById('serviceLocation').value;
+        console.log(toastMessage)
+
+        if (!serviceType || !serviceTitle) {
+            toastMessage.textContent = "Please fill in all required fields";
+            successToast.className = successToast.className.replace('bg-green-500', 'bg-red-500');
+            successToast.classList.remove('hidden');
+            setTimeout(() => {
+                successToast.classList.add('hidden');
+                successToast.className = successToast.className.replace('bg-red-500', 'bg-green-500');
+            }, 3000);
+            return;
+        }
+
+        // Show loading state on button
+        /*submitServiceOffer.innerHTML = '<span class="loading-spinner mr-2"></span> Submitting...';
+        submitServiceOffer.disabled = true;*/
+
+        // Prepare service data
+        try {
+                // Upload files first
+            const imageUrls = await uploadAllFiles();
             const serviceData = {
-                user_id:user_id,
-                service_type: serviceType,
-                service_title: serviceTitle,
-                service_desc: serviceDescription,
+                user_id: user_id,
+                type: serviceType,
+                title: serviceTitle,
+                desc: serviceDescription,
                 rate: serviceRate,
+                images: imageUrls,
                 experience: serviceExperience,
                 //location: serviceLocation,
             };
-
-            // Make POST request to backend API
-            fetch(PROVIDER_API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // Include authorization token if needed
-                    // 'Authorization': 'Bearer ' + authToken
-                },
-                body: JSON.stringify({providers : [serviceData],latLong: {lat,lng}})
-            })
+        console.log('Service data to be saved:', serviceData);
+        // Make POST request to backend API
+        fetch(PROVIDER_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Include authorization token if needed
+                // 'Authorization': 'Bearer ' + authToken
+            },
+            body: JSON.stringify({providers: [serviceData], latLong: {lat, lng}})
+        })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -1061,523 +1664,705 @@
                 return response.json();
             })
             .then(data => {
-            // Show success message
-            toastMessage.textContent = "Service offer submitted successfully!";
-            successToast.classList.remove('hidden');
-            setTimeout(() => {
-                successToast.classList.add('hidden');
-            }, 3000);
-
-            // Reset form and hide modal
-            document.getElementById('serviceType').value = '';
-            document.getElementById('serviceTitle').value = '';
-            document.getElementById('serviceDescription').value = '';
-            document.getElementById('serviceRate').value = '';
-            document.getElementById('serviceLocation').value = '';
-            hideServiceOfferModal();
-        }).catch(error => {
-                console.error('Error submitting service offer:', error);
-                toastMessage.textContent = "Failed to submit service offer. Please try again.";
-                successToast.className = successToast.className.replace('bg-green-500', 'bg-red-500');
+                // Show success message
+                toastMessage.textContent = "Service offer submitted successfully!";
                 successToast.classList.remove('hidden');
                 setTimeout(() => {
                     successToast.classList.add('hidden');
-                    successToast.className = successToast.className.replace('bg-red-500', 'bg-green-500');
                 }, 3000);
-            })
+
+                // Reset form and hide modal
+                document.getElementById('serviceType').value = '';
+                document.getElementById('serviceTitle').value = '';
+                document.getElementById('serviceDescription').value = '';
+                document.getElementById('serviceRate').value = '';
+                document.getElementById('serviceLocation').value = '';
+                hideServiceOfferModal();
+            }).catch(error => {
+            console.error('Error submitting service offer:', error);
+            toastMessage.textContent = "Failed to submit service offer. Please try again.";
+            successToast.className = successToast.className.replace('bg-green-500', 'bg-red-500');
+            successToast.classList.remove('hidden');
+            setTimeout(() => {
+                successToast.classList.add('hidden');
+                successToast.className = successToast.className.replace('bg-red-500', 'bg-green-500');
+            }, 3000);
+        })
             .finally(() => {
                 // Reset button state
                 submitServiceOffer.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Submit Offer';
                 submitServiceOffer.disabled = false;
             });
-            fetchNearbyServices();
-        });
+        } catch (error) {
+                console.error('Error submitting service offer:', error);
+                alert('There was an error submitting your service offer. Please try again.');
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+            }
+        fetchNearbyServices();
+    });
 
-        // Login modal functionality
-        const loginModal = document.getElementById('loginModal');
-        const loginBtn = document.getElementById('loginBtn');
-        const closeLoginModal = document.getElementById('closeLoginModal');
+    // Login modal functionality
+    const loginModal = document.getElementById('loginModal');
+    const loginBtn = document.getElementById('loginBtn');
+    const closeLoginModal = document.getElementById('closeLoginModal');
+
+    const phoneVerificationModal = document.getElementById('phoneVerificationModal');
+    const closePhoneModal = document.getElementById('closePhoneModal');
+    const verifyBtn = document.getElementById('verifyBtn');
+    const verifySpinner = document.getElementById('verifySpinner');
+    const verifyBtnText = document.getElementById('verifyBtnText');
+    const resendCodeBtn = document.getElementById('resendCodeBtn');
+    const countdown = document.getElementById('countdown');
+    const seconds = document.getElementById('seconds');
+    const verificationDigits = document.querySelectorAll('.verification-digit');
+    const phoneNumberInput = document.getElementById('phoneNumber');
+
+        const emailLoginBtn = document.getElementById('emailLoginBtn');
+        const sessionStatus = document.getElementById('sessionStatus');
+        const protectedContent = document.getElementById('protectedContent');
         const userProfile = document.getElementById('userProfile');
-        const userAvatar = document.getElementById('userAvatar');
         const userName = document.getElementById('userName');
+        const userAvatar = document.getElementById('userAvatar');
+        const userDropdown = document.getElementById('userDropdown');
+        const logoutBtn = document.getElementById('logoutBtn');
 
-        const phoneVerificationModal = document.getElementById('phoneVerificationModal');
-        const closePhoneModal = document.getElementById('closePhoneModal');
-        const verifyBtn = document.getElementById('verifyBtn');
-        const verifySpinner = document.getElementById('verifySpinner');
-        const verifyBtnText = document.getElementById('verifyBtnText');
-        const resendCodeBtn = document.getElementById('resendCodeBtn');
-        const countdown = document.getElementById('countdown');
-        const seconds = document.getElementById('seconds');
-        const verificationDigits = document.querySelectorAll('.verification-digit');
-        const phoneNumberInput = document.getElementById('phoneNumber');
-        var user_phone;
+        // Session management
+        function startSession(userData) {
+            // Store session in localStorage
+            localStorage.setItem('sessionActive', 'true');
+            localStorage.setItem('userData', JSON.stringify(userData));
 
-        // Handle verification code input
-        verificationDigits.forEach((digit, index) => {
-            digit.addEventListener('input', (e) => {
-                // Auto focus next input
-                if (e.target.value.length === 1 && index < verificationDigits.length - 1) {
-                    verificationDigits[index + 1].focus();
-                }
+            // Update UI
+            //sessionStatus.textContent = `Welcome back, ${userData.name}!`;
+            loginBtn.classList.add('hidden');
+            userProfile.classList.remove('hidden');
+            userName.textContent = userData.name;
 
-                // Validate input (numbers only)
-                if (!/^\d*$/.test(e.target.value)) {
-                    e.target.value = '';
-                }
-            });
+            // Set avatar (using placeholder if no image provided)
+            userAvatar.src = userData.picture || 'https://www.gravatar.com/avatar/?d=mp';
+            //protectedContent.classList.remove('hidden');
 
-            // Handle backspace
-            digit.addEventListener('keydown', (e) => {
-                if (e.key === 'Backspace' && e.target.value.length === 0 && index > 0) {
-                    verificationDigits[index - 1].focus();
-                }
-            });
+            // Close login modal if open
+            loginModal.classList.add('hidden');
+        }
+
+        function endSession() {
+            // Clear session from localStorage
+            localStorage.removeItem('sessionActive');
+            localStorage.removeItem('userData');
+
+            // Update UI
+            //sessionStatus.textContent = 'Please login to access your account.';
+            loginBtn.classList.remove('hidden');
+            userProfile.classList.add('hidden');
+            //protectedContent.classList.add('hidden');
+
+            // Hide dropdown if open
+            userDropdown.classList.remove('show');
+        }
+
+        // Check for existing session on page load
+        function checkSession() {
+            const sessionActive = localStorage.getItem('sessionActive');
+            const userData = localStorage.getItem('userData');
+
+            if (sessionActive && userData) {
+                startSession(JSON.parse(userData));
+            }
+        }
+
+        // Email login handler
+        emailLoginBtn.addEventListener('click', () => {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Simple validation
+            if (!email || !password) {
+                alert('Please enter both email and password');
+                return;
+            }
+
+            // In a real app, you would validate credentials with your backend
+            // For demo, we'll use the email username (part before @) as the display name
+            const username = email.split('@')[0];
+            startSession(username);
         });
 
-        // Format phone number input
-        phoneNumberInput.addEventListener('input', (e) => {
-            const input = e.target.value.replace(/\D/g, '').substring(0, 10);
-            user_phone=input;
-            const areaCode = input.substring(0, 3);
-            const middle = input.substring(3, 6);
-            const last = input.substring(6, 10);
+        // User dropdown handling
+        userProfile.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userDropdown.classList.toggle('show');
+        });
 
-            if (input.length > 6) {
-                e.target.value = `(${areaCode}) ${middle}-${last}`;
-            } else if (input.length > 3) {
-                e.target.value = `(${areaCode}) ${middle}`;
-            } else if (input.length > 0) {
-                e.target.value = `(${areaCode}`;
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!userProfile.contains(e.target) && !userDropdown.contains(e.target)) {
+                userDropdown.classList.remove('show');
             }
         });
 
-        // Verify button handler
-        const USER_PHONE_API_URL = USER_API_URL+'/phone';
-        verifyBtn.addEventListener('click', () => {
-            // Show loading state
-            verifySpinner.classList.remove('hidden');
-            verifyBtnText.textContent = 'Verifying...';
-            verifyBtn.disabled = true;
-
-            // Get verification code
-            let code = '';
-            verificationDigits.forEach(digit => {
-                code += digit.value;
-            });
-
-            // Simulate API verification
-            setTimeout(() => {
-                if (code === '123456') { // Hardcoded correct code for demo
-                    // Success - close modal
-                    phoneVerificationModal.classList.add('hidden');
-
-                    // Show success message (could be a toast)
-                    alert('Phone number verified successfully!');
-                    fetch(USER_PHONE_API_URL, {
-                        method: 'PATCH',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            emailId: user_id,
-                            phoneNumber: user_phone
-                        })
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok: ' + response.statusText);
-                            }
-                            return response.json(); // or response.text() if expecting plain text
-                        })
-                        .then(data => {
-                            console.log('Success:', data);
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
-
-
-                } else {
-                    // Error - shake animation
-                    verificationDigits.forEach(digit => {
-                        digit.classList.add('shake');
-                        digit.style.borderColor = '#ef4444';
-                        setTimeout(() => {
-                            digit.classList.remove('shake');
-                        }, 1000);
-                    });
-                }
-
-                // Reset verify button
-                verifySpinner.classList.add('hidden');
-                verifyBtnText.textContent = 'Verify Phone';
-                verifyBtn.disabled = false;
-            }, 1500);
+        // Logout handling
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            endSession();
         });
 
-        // Resend code handler
-        resendCodeBtn.addEventListener('click', () => {
-            if (resendCodeBtn.classList.contains('text-gray-400')) return;
+        // Close dropdown when clicking outside
+        /*document.addEventListener('click', (e) => {
+            if (!userMenu.contains(e.target)) {
+                userDropdown.classList.remove('show');
+            }
+        });*/
 
-            // Disable resend button and show countdown
-            resendCodeBtn.classList.add('text-gray-400', 'cursor-not-allowed');
-            countdown.classList.remove('hidden');
-            startCountdown();
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkSession();
 
-            // Simulate API call to resend code
-            setTimeout(() => {
+            // In a real app, you would also check for Google session
+            // This is just for demo purposes
+        });
+
+
+
+    var user_phone;
+
+
+
+    // Handle verification code input
+    verificationDigits.forEach((digit, index) => {
+        digit.addEventListener('input', (e) => {
+            // Auto focus next input
+            if (e.target.value.length === 1 && index < verificationDigits.length - 1) {
+                verificationDigits[index + 1].focus();
+            }
+
+            // Validate input (numbers only)
+            if (!/^\d*$/.test(e.target.value)) {
+                e.target.value = '';
+            }
+        });
+
+        // Handle backspace
+        digit.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && e.target.value.length === 0 && index > 0) {
+                verificationDigits[index - 1].focus();
+            }
+        });
+    });
+
+    // Format phone number input
+    phoneNumberInput.addEventListener('input', (e) => {
+        const input = e.target.value.replace(/\D/g, '').substring(0, 10);
+        user_phone = input;
+        const areaCode = input.substring(0, 3);
+        const middle = input.substring(3, 6);
+        const last = input.substring(6, 10);
+
+        if (input.length > 6) {
+            e.target.value = `(${areaCode}) ${middle}-${last}`;
+        } else if (input.length > 3) {
+            e.target.value = `(${areaCode}) ${middle}`;
+        } else if (input.length > 0) {
+            e.target.value = `(${areaCode}`;
+        }
+    });
+
+    // Verify button handler
+    const USER_PHONE_API_URL = USER_API_URL + '/phone';
+    verifyBtn.addEventListener('click', () => {
+        // Show loading state
+        verifySpinner.classList.remove('hidden');
+        verifyBtnText.textContent = 'Verifying...';
+        verifyBtn.disabled = true;
+
+        // Get verification code
+        let code = '';
+        verificationDigits.forEach(digit => {
+            code += digit.value;
+        });
+
+        // Simulate API verification
+        setTimeout(() => {
+            if (code === '123456') { // Hardcoded correct code for demo
+                // Success - close modal
+                phoneVerificationModal.classList.add('hidden');
+
                 // Show success message (could be a toast)
-                alert('New verification code sent!');
-            }, 500);
-        });
-
-        // Countdown function
-        function startCountdown() {
-            let timeLeft = 60;
-            const timer = setInterval(() => {
-                timeLeft--;
-                seconds.textContent = timeLeft;
-
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    countdown.classList.add('hidden');
-                    resendCodeBtn.classList.remove('text-gray-400', 'cursor-not-allowed');
-                }
-            }, 1000);
-        }
-
-        function enableLogin() {
-            loginModal.classList.remove('hidden');
-            loginModal.classList.add('visible');
-        }
-
-        // Show login modal
-        loginBtn.addEventListener('click', () => {
-            enableLogin();
-        });
-
-        // Hide login modal
-        closeLoginModal.addEventListener('click', () => {
-            loginModal.classList.remove('visible');
-            loginModal.classList.add('hidden');
-        });
-
-        // Handle Google Sign-In
+                alert('Phone number verified successfully!');
+                fetch(USER_PHONE_API_URL, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        emailId: user_id,
+                        phoneNumber: user_phone
+                    })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok: ' + response.statusText);
+                        }
+                        return response.json(); // or response.text() if expecting plain text
+                    })
+                    .then(data => {
+                        console.log('Phone Update Success:');
+                        showToast(`Phone Updated Successfully!`);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
 
 
-        function handleGoogleSignIn(response) {
-            // This is where you would normally verify the credential with your backend
-            const idToken = response.credential;
-            // Send token to backend for verification
-            fetch(AUTH_API_URL, {
-                method: 'POST',
-                credentials: "include",
-                headers: {
+            } else {
+                // Error - shake animation
+                verificationDigits.forEach(digit => {
+                    digit.classList.add('shake');
+                    digit.style.borderColor = '#ef4444';
+                    setTimeout(() => {
+                        digit.classList.remove('shake');
+                    }, 1000);
+                });
+            }
+
+            // Reset verify button
+            verifySpinner.classList.add('hidden');
+            verifyBtnText.textContent = 'Verify Phone';
+            verifyBtn.disabled = false;
+        }, 1500);
+    });
+
+    // Resend code handler
+    resendCodeBtn.addEventListener('click', () => {
+        if (resendCodeBtn.classList.contains('text-gray-400')) return;
+
+        // Disable resend button and show countdown
+        resendCodeBtn.classList.add('text-gray-400', 'cursor-not-allowed');
+        countdown.classList.remove('hidden');
+        startCountdown();
+
+        // Simulate API call to resend code
+        setTimeout(() => {
+            // Show success message (could be a toast)
+            alert('New verification code sent!');
+        }, 500);
+    });
+
+    // Countdown function
+    function startCountdown() {
+        let timeLeft = 60;
+        const timer = setInterval(() => {
+            timeLeft--;
+            seconds.textContent = timeLeft;
+
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                countdown.classList.add('hidden');
+                resendCodeBtn.classList.remove('text-gray-400', 'cursor-not-allowed');
+            }
+        }, 1000);
+    }
+
+    function enableLogin() {
+        loginModal.classList.remove('hidden');
+        loginModal.classList.add('visible');
+    }
+
+    // Show login modal
+    loginBtn.addEventListener('click', () => {
+        enableLogin();
+    });
+
+    // Hide login modal
+    closeLoginModal.addEventListener('click', () => {
+        loginModal.classList.remove('visible');
+        loginModal.classList.add('hidden');
+    });
+
+    // Handle Google Sign-In
+
+
+    function handleGoogleSignIn(response) {
+        // This is where you would normally verify the credential with your backend
+        const idToken = response.credential;
+        // Send token to backend for verification
+        fetch(AUTH_API_URL, {
+            method: 'POST',
+            credentials: "include",
+            headers: {
                 'Content-Type': 'application/json'
-                },
-            body: JSON.stringify({ credential: idToken })
-             })
+            },
+            body: JSON.stringify({credential: idToken})
+        })
             .then(res => res.json())
             .then(data => {
                 user_id = data.email;
+                phone = data.phone;
                 const user = {
                     name: data.firstName,
                     email: data.email,
                     picture: data.pic
                 };
+
                 // Update UI to show logged in state
-            loginBtn.classList.add('hidden');
-            userProfile.classList.remove('hidden');
-            userAvatar.src = user.picture;
-            userName.textContent = user.name; // Show first name only
-            showToast(`Welcome back, ${user.name}!`);
-      })
-      .catch(err => {
-        console.error("Authentication failed", err);
-      });
-            // For demo purposes, we'll just show the user's info
-            //const userObject = parseJwt(response.credential);
-            //console.log("User Info:", userObject);
+                loginBtn.classList.add('hidden');
+                userProfile.classList.remove('hidden');
+                userAvatar.src = user.picture;
+                userName.textContent = user.name; // Show first name only
+                showToast(`Welcome back, ${user.name}!`);
+                loginModal.classList.remove('visible');
+                loginModal.classList.add('hidden');
 
+                startSession(user);
+                if (!data.phone) {
+                    setTimeout(() => {
 
+                        // Show phone verification modal
+                        phoneVerificationModal.classList.remove('hidden');
 
-            // Hide login modal
-            loginModal.classList.remove('visible');
-            loginModal.classList.add('hidden');
+                        // Reset login button
+                        //loginSpinner.classList.add('hidden');
+                        //loginBtnText.textContent = 'Login with Email';
+                        loginBtn.disabled = false;
 
-            setTimeout(() => {
+                        // Start countdown for resend
+                        startCountdown();
+                    }, 1500);
+                }
+            })
+            .catch(err => {
+                console.error("Authentication failed", err);
+            });
 
-                // Show phone verification modal
-                phoneVerificationModal.classList.remove('hidden');
+    }
 
-                // Reset login button
-                //loginSpinner.classList.add('hidden');
-                //loginBtnText.textContent = 'Login with Email';
-                loginBtn.disabled = false;
-
-                // Start countdown for resend
-                startCountdown();
-            }, 1500);
-
-        }
-
-        function parseJwt(token) {
-            const base64Url = token.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+    function parseJwt(token) {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
+        }).join(''));
 
-            return JSON.parse(jsonPayload);
-        }
+        return JSON.parse(jsonPayload);
+    }
 
-        // Function to show toast notifications
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center';
-            toast.innerHTML = `
+    // Function to show toast notifications
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center';
+        toast.innerHTML = `
                 <i class="fas fa-check-circle mr-2"></i>
                 <span>${message}</span>
             `;
-            document.body.appendChild(toast);
+        document.body.appendChild(toast);
 
-            setTimeout(() => {
-                toast.remove();
-            }, 3000);
-        }
+        setTimeout(() => {
+            toast.remove();
+        }, 3000);
+    }
 
-        // Location modal functionality (existing code)
-        const locationModal = document.getElementById('locationModal');
-        const findServicesBtn = document.getElementById('findServicesBtn');
-        const cancelLocationBtn = document.getElementById('cancelLocationBtn');
-        const detectLocationBtn = document.getElementById('detectLocationBtn');
-        const confirmLocationBtn = document.getElementById('confirmLocationBtn');
-        const locationInput = document.getElementById('locationInput');
-        const locationError = document.getElementById('locationError');
+    // Location modal functionality (existing code)
+    const locationModal = document.getElementById('locationModal');
+    const findServicesBtn = document.getElementById('findServicesBtn');
+    const cancelLocationBtn = document.getElementById('cancelLocationBtn');
+    const detectLocationBtn = document.getElementById('detectLocationBtn');
+    const confirmLocationBtn = document.getElementById('confirmLocationBtn');
+    const locationInput = document.getElementById('locationInput');
+    const locationError = document.getElementById('locationError');
+    const nearbyServicesContainer = document.getElementById('nearbyServices');
+    const serviceDetailOverlay = document.getElementById('serviceDetailOverlay');
+    const closeDetailBtn = document.getElementById('closeDetailBtn');
+    const bookServiceBtn = document.getElementById('bookServiceBtn');
 
-        findServicesBtn.addEventListener('click', () => {
-            locationModal.classList.remove('hidden');
-        });
+    findServicesBtn.addEventListener('click', () => {
+        locationModal.classList.remove('hidden');
+    });
 
-        /*offerServicesBtn.addEventListener('click', () => {
-            locationModal.classList.remove('hidden');
-        });*/
+    cancelLocationBtn.addEventListener('click', () => {
+        locationModal.classList.add('hidden');
+    });
 
-        cancelLocationBtn.addEventListener('click', () => {
-            locationModal.classList.add('hidden');
-        });
-
-        function locationFinder() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        lat = position.coords.latitude;
-                        lng = position.coords.longitude;
-                        locationInput.value = "Your current location";
-                        detectLocationBtn.innerHTML = '<i class="fas fa-check"></i>';
-                        setTimeout(() => {
-                            detectLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i>';
-                            detectLocationBtn.disabled = false;
-                        }, 1500);
-                    },
-                    (error) => {
-                        locationError.classList.remove('hidden');
+    function locationFinder() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    lat = position.coords.latitude;
+                    lng = position.coords.longitude;
+                    locationInput.value = "Your current location";
+                    detectLocationBtn.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(() => {
                         detectLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i>';
                         detectLocationBtn.disabled = false;
-                    }
-                );
-            } else {
-                locationError.textContent = "Geolocation is not supported by your browser";
-                locationError.classList.remove('hidden');
-                detectLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i>';
-                detectLocationBtn.disabled = false;
-            }
+                    }, 1500);
+                },
+                (error) => {
+                    locationError.classList.remove('hidden');
+                    detectLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i>';
+                    detectLocationBtn.disabled = false;
+                }
+            );
+        } else {
+            locationError.textContent = "Geolocation is not supported by your browser";
+            locationError.classList.remove('hidden');
+            detectLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i>';
+            detectLocationBtn.disabled = false;
         }
+    }
 
-        detectLocationBtn.addEventListener('click', () => {
-            locationError.classList.add('hidden');
-            detectLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-            detectLocationBtn.disabled = true;
-            console.log(navigator.geolocation);
-            locationFinder();
-        });
+    detectLocationBtn.addEventListener('click', () => {
+        locationError.classList.add('hidden');
+        detectLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        detectLocationBtn.disabled = true;
+        console.log(navigator.geolocation);
+        locationFinder();
+    });
 
-        confirmLocationBtn.addEventListener('click', () => {
-            if (locationInput.value.trim() === "") {
-                locationError.textContent = "Please enter or detect your location";
-                locationError.classList.remove('hidden');
-                return;
-            }
-            locationModal.classList.add('hidden');
-            showToast('Location set successfully!');
-
-            // After setting location, fetch nearby services
-            fetchNearbyServices();
-        });
-
-        // Initialize Google Sign-In
-        function initializeGoogleSignIn() {
-            // In a real app, you would configure this with your actual client ID
-            // For now, we're using the demo configuration from the HTML
-            console.log("Google Sign-In initialized");
+    confirmLocationBtn.addEventListener('click', () => {
+        if (locationInput.value.trim() === "") {
+            locationError.textContent = "Please enter or detect your location";
+            locationError.classList.remove('hidden');
+            return;
         }
+        locationModal.classList.add('hidden');
+        showToast('Location set successfully!');
 
-        // Function to fetch nearby services from API
-        function fetchNearbyServices() {
-            const nearbyServicesContainer = document.getElementById('nearbyServices');
-            const loadingElement = document.getElementById('loadingServices');
-            const loadMoreBtn = document.getElementById('loadMoreBtn');
-            // Show loading state
-            loadingElement.classList.remove('hidden');
-            nearbyServicesContainer.innerHTML = '';
-            nearbyServicesContainer.appendChild(loadingElement);
-            // Make API call to fetch nearby services
-            var provider_geo_url= PROVIDER_API_URL
-            if(lat){
-            provider_geo_url= PROVIDER_API_URL+'/'+lat+'/'+lng;
-            }
-            //PROVIDER_URL=MOCK_API_URL+'34.455476767/68.232455531'
-            fetch(provider_geo_url,{
-                headers: {
+        // After setting location, fetch nearby services
+        fetchNearbyServices();
+    });
+
+    // Initialize Google Sign-In
+    function initializeGoogleSignIn() {
+        // In a real app, you would configure this with your actual client ID
+        // For now, we're using the demo configuration from the HTML
+        console.log("Google Sign-In initialized");
+    }
+
+    // Function to fetch nearby services from API
+    function fetchNearbyServices() {
+        const nearbyServicesContainer = document.getElementById('nearbyServices');
+        const loadingElement = document.getElementById('loadingServices');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        // Show loading state
+        loadingElement.classList.remove('hidden');
+        nearbyServicesContainer.innerHTML = '';
+        nearbyServicesContainer.appendChild(loadingElement);
+        // Make API call to fetch nearby services
+        var provider_geo_url = PROVIDER_API_URL
+        if (lat) {
+            provider_geo_url = PROVIDER_API_URL + '/' + lat + '/' + lng;
+        }
+        //PROVIDER_URL=MOCK_API_URL+'34.455476767/68.232455531'
+        fetch(provider_geo_url, {
+            headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-                },
-                method: "GET"
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Hide loading state
-                    console.log(data)
-                    loadingElement.classList.add('hidden');
-                    console.log(document.getElementById('loadingServices'));
-                    if (data && data.length > 0) {
-                        // Render service cards
-                        renderServiceCards(data);
+            },
+            method: "GET"
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Hide loading state
+                loadingElement.classList.add('hidden');
+                if (data && data.length > 0) {
+                    // Render service cards
+                    renderServiceCards(data);
 
-                        // Show load more button if there are more services
-                        if (data.hasMore) {
-                            loadMoreBtn.classList.remove('hidden');
-                        }
-                    } else {
-                        // Show no services message
-                        nearbyServicesContainer.innerHTML = `
+                    // Show load more button if there are more services
+                    if (data.hasMore) {
+                        loadMoreBtn.classList.remove('hidden');
+                    }
+                } else {
+                    // Show no services message
+                    nearbyServicesContainer.innerHTML = `
                             <div class="col-span-full text-center py-12">
                                 <i class="fas fa-info-circle text-4xl text-gray-400 mb-4"></i>
                                 <p class="text-gray-600">No services found in your area. Try expanding your search radius.</p>
                             </div>
                         `;
-                    }
-                })
-                .catch(error => {
-                    console.log(nearbyServicesContainer);
-                    console.error('Error fetching nearby services:', error);
-                    loadingElement.classList.add('hidden');
-                    /*nearbyServicesContainer.innerHTML = `
-                        <div class="col-span-full text-center py-12">
-                            <i class="fas fa-exclamation-triangle text-4xl text-red-400 mb-4"></i>
-                            <p class="text-gray-600">Failed to load services. Please try again later.</p>
-                            <button onclick="fetchNearbyServices()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                                Retry
-                            </button>
-                        </div>
-                    `;*/
-                    //console.log(document.getElementById('loadingServices'));
-                });
-        }
+                }
+            })
+            .catch(error => {
+                console.log(nearbyServicesContainer);
+                console.error('Error fetching nearby services:', error);
+                loadingElement.classList.add('hidden');
+                /*nearbyServicesContainer.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class="fas fa-exclamation-triangle text-4xl text-red-400 mb-4"></i>
+                        <p class="text-gray-600">Failed to load services. Please try again later.</p>
+                        <button onclick="fetchNearbyServices()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                            Retry
+                        </button>
+                    </div>
+                `;*/
+                //console.log(document.getElementById('loadingServices'));
+            });
+    }
 
-        // Function to render service cards
-        function renderServiceCards(services) {
-            const nearbyServicesContainer = document.getElementById('nearbyServices');
+    // Map service types to colors and icons
+    const serviceTypeStyles = {
+        'home': {bg: 'bg-blue-100', text: 'text-blue-600', icon: 'fa-tools'},
+        'tech': {bg: 'bg-purple-100', text: 'text-purple-600', icon: 'fa-laptop'},
+        'childcare': {bg: 'bg-green-100', text: 'text-green-600', icon: 'fa-baby'},
+        'fitness': {bg: 'bg-red-100', text: 'text-red-600', icon: 'fa-dumbbell'},
+        'auto': {bg: 'bg-yellow-100', text: 'text-yellow-600', icon: 'fa-car'},
+        'creative': {bg: 'bg-indigo-100', text: 'text-indigo-600', icon: 'fa-paint-brush'},
+        'petcare': {bg: 'bg-pink-100', text: 'text-pink-600', icon: 'fa-dog'},
+        'food': {bg: 'bg-teal-100', text: 'text-teal-600', icon: 'fa-utensils'},
+        'gardening': {bg: 'bg-orange-100', text: 'text-orange-600', icon: 'fa-leaf'}
+    };
 
-            // Clear existing content
-            nearbyServicesContainer.innerHTML = '';
+    // Function to render service cards
+    function renderServiceCards(services) {
+        const nearbyServicesContainer = document.getElementById('nearbyServices');
 
-            // Create a document fragment for better performance
-            const fragment = document.createDocumentFragment();
+        // Clear existing content
+        nearbyServicesContainer.innerHTML = '';
 
-            // Map service types to colors and icons
-            const serviceTypeStyles = {
-                'home': { bg: 'bg-blue-100', text: 'text-blue-600', icon: 'fa-tools' },
-                'tech': { bg: 'bg-purple-100', text: 'text-purple-600', icon: 'fa-laptop' },
-                'childcare': { bg: 'bg-green-100', text: 'text-green-600', icon: 'fa-baby' },
-                'fitness': { bg: 'bg-red-100', text: 'text-red-600', icon: 'fa-dumbbell' },
-                'auto': { bg: 'bg-yellow-100', text: 'text-yellow-600', icon: 'fa-car' },
-                'creative': { bg: 'bg-indigo-100', text: 'text-indigo-600', icon: 'fa-paint-brush' },
-                'petcare': { bg: 'bg-pink-100', text: 'text-pink-600', icon: 'fa-dog' },
-                'food': { bg: 'bg-teal-100', text: 'text-teal-600', icon: 'fa-utensils' },
-                'gardening': { bg: 'bg-orange-100', text: 'text-orange-600', icon: 'fa-leaf' }
-            };
+        // Create a document fragment for better performance
+        const fragment = document.createDocumentFragment();
 
-            // Create a card for each service
-            services.forEach(service => {
-                const serviceType = service.service_type || 'home';
-                const styles = serviceTypeStyles[serviceType] || serviceTypeStyles['home'];
 
-                const card = document.createElement('div');
-                card.className = 'service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition';
-                card.innerHTML = `
+        // Create a card for each service
+        services.forEach(service => {
+            const serviceType = service.type || 'home';
+            const styles = serviceTypeStyles[serviceType] || serviceTypeStyles['home'];
+
+            const card = document.createElement('div');
+            card.className = 'service-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition';
+            card.innerHTML = `
                     <div class="h-40 ${styles.bg} flex items-center justify-center">
                         <i class="fas ${styles.icon} text-4xl ${styles.text}"></i>
                     </div>
                     <div class="p-6">
                         <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-xl font-semibold">${service.service_title}</h3>
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">1 km</span>
+                            <h3 class="text-xl font-semibold">${service.title}</h3>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">${service.distance} km</span>
                         </div>
-                        <p class="text-gray-600 mb-4">${service.service_desc}</p>
+                        <p class="text-gray-600 mb-4">${service.desc}</p>
                         <div class="flex justify-between items-center">
                             <div class="flex items-center">
                                 <i class="fas fa-star text-yellow-400 mr-1"></i>
-                                <span class="font-medium">5</span>
+                                <span class="font-medium">(${service.stars})</span>
                                 <span class="text-gray-500 text-sm ml-1">(${service.reviews})</span>
                             </div>
                             <span class="font-bold">₹${service.rate}</span>
                         </div>
                     </div>
                 `;
+            // Add click event to show service details
+            card.addEventListener('click', () => showServiceDetails(service));
+            fragment.appendChild(card);
+        });
 
-                fragment.appendChild(card);
+        // Append all cards at once
+        nearbyServicesContainer.appendChild(fragment);
+    }
+
+    // Show service details in overlay
+    function showServiceDetails(service) {
+        const serviceType = service.type || 'home';
+        const styles = serviceTypeStyles[serviceType] || serviceTypeStyles['home'];
+        /*service.images = [
+                        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                        "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                        "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                    ];*/
+        // Set main service image
+        console.log(service.images[0])
+        document.getElementById('detailServiceImage').src = service.images[0];
+        document.getElementById('detailServiceTitle').textContent = service.title;
+        document.getElementById('detailServiceCategory').textContent = styles.category;
+        document.getElementById('detailServiceDistance').textContent = `${service.distance} km away`;
+        document.getElementById('detailServiceRating').textContent = service.stars;
+        document.getElementById('detailServiceReviews').textContent = `(${service.reviews} reviews)`;
+        document.getElementById('detailServiceRate').textContent = `₹${service.rate}`;
+        document.getElementById('detailServiceDescription').textContent = service.desc;
+        //document.getElementById('detailServiceProvider').textContent = service.details.provider;
+        document.getElementById('detailServiceExperience').textContent = service.experience;
+        document.getElementById('detailServiceAvailability').textContent = service.availability;
+
+        // Render gallery images
+        const galleryContainer = document.getElementById('serviceGallery');
+        galleryContainer.innerHTML = '';
+
+        service.images.forEach(imageUrl => {
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.alt = service.title;
+            img.className = 'rounded-md h-24 w-full object-cover cursor-pointer hover:opacity-80 transition';
+            img.addEventListener('click', () => {
+                document.getElementById('detailServiceImage').src = imageUrl;
             });
+            galleryContainer.appendChild(img);
+        });
 
-            // Append all cards at once
-            nearbyServicesContainer.appendChild(fragment);
+        // Show the overlay
+        serviceDetailOverlay.classList.add('active');
+
+        // Scroll to top of detail container
+        document.querySelector('.service-detail-container').scrollTop = 0;
+    }
+
+    // Close service details overlay
+    function closeServiceDetails() {
+        serviceDetailOverlay.classList.remove('active');
+    }
+
+    // Event listeners
+    closeDetailBtn.addEventListener('click', closeServiceDetails);
+    serviceDetailOverlay.addEventListener('click', (e) => {
+        if (e.target === serviceDetailOverlay) {
+            closeServiceDetails();
         }
+    });
 
-        // Load more services
-        document.getElementById('loadMoreBtn').addEventListener('click', () => {
-            // In a real app, you would fetch the next page of results
-            // For this demo, we'll just show a toast
-            showToast('Loading more services...');
+    bookServiceBtn.addEventListener('click', () => {
+        alert('We are building our Booking functionality, feel free to connect with the Provider here');
+        closeServiceDetails();
+    });
 
-            // Simulate loading more services
-            setTimeout(() => {
-                showToast('More services loaded!');
-            }, 1500);
-        });
+    // Initialize the page
+    /*document.addEventListener('DOMContentLoaded', () => {
+        renderServiceCards(services);
+    });*/
 
-        // Sort services
-        document.getElementById('sortServices').addEventListener('change', (e) => {
-            const sortBy = e.target.value;
-            showToast(`Services sorted by ${sortBy}`);
+    // Load more services
+    document.getElementById('loadMoreBtn').addEventListener('click', () => {
+        // In a real app, you would fetch the next page of results
+        // For this demo, we'll just show a toast
+        showToast('Loading more services...');
 
-            // In a real app, you would re-fetch or re-sort the services
-        });
+        // Simulate loading more services
+        setTimeout(() => {
+            showToast('More services loaded!');
+        }, 1500);
+    });
 
-        // Initialize when the page loads
-        window.addEventListener('DOMContentLoaded', () => {
-            initializeGoogleSignIn();
+    // Sort services
+    document.getElementById('sortServices').addEventListener('change', (e) => {
+        const sortBy = e.target.value;
+        showToast(`Services sorted by ${sortBy}`);
 
-            // Fetch nearby services on page load (with a small delay to simulate network request)
-            setTimeout(() => {
-                fetchNearbyServices();
-            }, 500);
-        });
-    </script>
+        // In a real app, you would re-fetch or re-sort the services
+    });
+
+    // Initialize when the page loads
+    window.addEventListener('DOMContentLoaded', () => {
+        initializeGoogleSignIn();
+
+        // Fetch nearby services on page load (with a small delay to simulate network request)
+        setTimeout(() => {
+            fetchNearbyServices();
+        }, 500);
+    });
+</script>
 </body>
 </html>
