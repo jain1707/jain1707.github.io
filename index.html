@@ -231,9 +231,11 @@
         .gradient-bg {
             background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
         }
+
         .login-modal {
             transition: opacity 0.3s ease;
         }
+
         .user-dropdown {
             transform: scaleY(0);
             transform-origin: top;
@@ -248,6 +250,7 @@
             min-width: 160px;
             overflow: hidden;
         }
+
         .user-dropdown.show {
             transform: scaleY(1);
         }
@@ -261,46 +264,48 @@
 </head>
 <!-- Navigation -->
 <body class="bg-gray-50 font-sans">
-    <nav class="gradient-bg text-white shadow-lg">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <i class="fas fa-hands-helping text-2xl"></i>
-                <span class="text-xl font-bold">ConnectServe</span>
-            </div>
-            <div class="hidden md:flex space-x-6">
-                <a href="#" class="hover:text-gray-200" data-tab="home">Home</a>
-                <a href="#" class="hover:text-gray-200" data-tab="how-it-works">How it works</a>
-                <a href="#" class="hover:text-gray-200" data-tab="services">Services</a>
-                <a href="#" class="hover:text-gray-200" data-tab="about">About</a>
-            </div>
-            <div class="flex items-center space-x-4 relative">
-                <button id="loginBtn"
-                        class="px-4 py-2 bg-white text-blue-600 rounded-full font-medium hover:bg-gray-100 transition">
-                    Login
-                </button>
-                <div id="userProfile" class="hidden items-center space-x-2 cursor-pointer">
-                    <img id="userAvatar" src="" alt="User" class="w-8 h-8 rounded-full">
-                    <span id="userName" class="font-medium"></span>
-                </div>
-                <div id="userDropdown" class="user-dropdown">
-                    <!--<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>-->
-                    <button id="logoutBtn" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</button>
-                </div>
-                <button class="md:hidden text-white">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-            </div>
+<nav class="gradient-bg text-white shadow-lg">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-hands-helping text-2xl"></i>
+            <span class="text-xl font-bold">ConnectServe</span>
         </div>
-    </nav>
-     <!-- Main Content -->
-    <!--<main class="container mx-auto px-4 py-8">
-        <div class="bg-white rounded-xl shadow-md p-6">
-            <h2 class="text-xl font-semibold mb-4">Welcome to ConnectServe</h2>
-            <p class="text-gray-600" id="sessionStatus">Please login to access your account.</p>
+        <div class="hidden md:flex space-x-6">
+            <a href="#" class="hover:text-gray-200" data-tab="home">Home</a>
+            <a href="#" class="hover:text-gray-200" data-tab="how-it-works">How it works</a>
+            <a href="#" class="hover:text-gray-200" data-tab="services">Services</a>
+            <a href="#" class="hover:text-gray-200" data-tab="about">About</a>
+        </div>
+        <div class="flex items-center space-x-4 relative">
+            <button id="loginBtn"
+                    class="px-4 py-2 bg-white text-blue-600 rounded-full font-medium hover:bg-gray-100 transition">
+                Login
+            </button>
+            <div id="userProfile" class="hidden items-center space-x-2 cursor-pointer">
+                <img id="userAvatar" src="" alt="User" class="w-8 h-8 rounded-full">
+                <span id="userName" class="font-medium"></span>
+            </div>
+            <div id="userDropdown" class="user-dropdown">
+                <!--<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>-->
+                <button id="logoutBtn" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    Sign out
+                </button>
+            </div>
+            <button class="md:hidden text-white">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+<!-- Main Content -->
+<!--<main class="container mx-auto px-4 py-8">
+    <div class="bg-white rounded-xl shadow-md p-6">
+        <h2 class="text-xl font-semibold mb-4">Welcome to ConnectServe</h2>
+        <p class="text-gray-600" id="sessionStatus">Please login to access your account.</p>
 
-        </div>
-    </main>-->
+    </div>
+</main>-->
 
 <!-- Location Finder Modal -->
 <div id="locationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
@@ -384,7 +389,8 @@
                         <input type="password" id="password"
                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
-                        <button id="emailLoginBtn" class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
+                    <button id="emailLoginBtn"
+                            class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
                         Login with Email
                     </button>
                 </div>
@@ -423,6 +429,11 @@
                         <input type="tel" id="phoneNumber"
                                class="w-full pl-12 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                placeholder="(123) 456-7890">
+                    </div>
+                    <div>
+                        <button id="sendCodeBtn" class="text-blue-600 hover:underline text-sm">
+                        Send Code
+                    </button>
                     </div>
                 </div>
 
@@ -1060,8 +1071,8 @@
 </div>
 
 <!-- Service Offer Modal -->
-    <div id="serviceOfferModal" class="service-offer-modal">
-        <div class="bg-white rounded-xl max-w-md w-full mx-4 overflow-hidden transform transition-all duration-300 max-h-[90vh] overflow-y-auto">
+<div id="serviceOfferModal" class="service-offer-modal">
+    <div class="bg-white rounded-xl max-w-md w-full mx-4 overflow-hidden transform transition-all duration-300 max-h-[90vh] overflow-y-auto">
         <div class="p-6">
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-2xl font-bold">Offer Your Services</h3>
@@ -1071,133 +1082,146 @@
             </div>
 
             <form id="serviceOfferForm">
-            <div class="mb-6">
-                <div class="flex flex-col space-y-4">
-                    <div>
-                                <label for="serviceType" class="block text-sm font-medium text-gray-700 mb-1">Service Type</label>
-                                <select id="serviceType" required
-                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option value="">Select a service type</option>
-                            <option value="home">Home Services</option>
-                            <option value="auto">Auto Services</option>
-                            <option value="tech">Tech Support</option>
-                            <option value="childcare">Child Care</option>
-                            <option value="fitness">Fitness</option>
-                            <option value="creative">Creative</option>
-                            <option value="petcare">Pet Care</option>
-                            <option value="food">Food Services</option>
-                            <option value="gardening">Gardening</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-
-                    <div>
-                                <label for="serviceTitle" class="block text-sm font-medium text-gray-700 mb-1">Service Title</label>
-                                <input type="text" id="serviceTitle" required placeholder="e.g. Professional Handyman Services"
-                               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-
-                    <div>
-                        <label for="serviceDescription"
-                               class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                                <textarea id="serviceDescription" required rows="3" placeholder="Describe your service in detail..."
-                                  class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                    </div>
-
-                            <!-- Image Upload Section -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Service Images</label>
-                                <div id="uploadArea" class="upload-area">
-                                    <i class="fas fa-cloud-upload-alt text-3xl text-blue-500 mb-2"></i>
-                                    <p class="text-sm text-gray-600">Drag & drop your images here or click to browse</p>
-                                    <p class="text-xs text-gray-500 mt-1">Supports JPG, PNG (Max 5MB each)</p>
-                                    <input type="file" id="fileInput" class="hidden" accept="image/*" multiple>
-                                </div>
-                                <div id="progressContainer" class="hidden">
-                                    <p class="text-sm text-gray-600 mt-2">Uploading: <span id="uploadingFileName"></span></p>
-                                    <div class="progress-bar">
-                                        <div id="progressBarFill" class="progress-bar-fill"></div>
-                                    </div>
-                                </div>
-                                <div id="imagePreviews" class="image-preview-container"></div>
-                            </div>
-
-                    <div class="grid grid-cols-2 gap-4">
+                <div class="mb-6">
+                    <div class="flex flex-col space-y-4">
                         <div>
-                            <label for="serviceRate" class="block text-sm font-medium text-gray-700 mb-1">Rate</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <span class="text-gray-500">$</span>
-                                </div>
-                                        <input type="number" id="serviceRate" required placeholder="0.00"
-                                       class="w-full pl-7 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                    <span class="text-gray-500">/hr</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <label for="serviceExperience" class="block text-sm font-medium text-gray-700 mb-1">Experience</label>
-                                    <select id="serviceExperience" required
+                            <label for="serviceType" class="block text-sm font-medium text-gray-700 mb-1">Service
+                                Type</label>
+                            <select id="serviceType" required
                                     class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="beginner">Beginner</option>
-                                <option value="intermediate">1-3 years</option>
-                                <option value="experienced">3-5 years</option>
-                                <option value="expert">5+ years</option>
+                                <option value="">Select a service type</option>
+                                <option value="home">Home Services</option>
+                                <option value="auto">Auto Services</option>
+                                <option value="tech">Tech Support</option>
+                                <option value="childcare">Child Care</option>
+                                <option value="fitness">Fitness</option>
+                                <option value="creative">Creative</option>
+                                <option value="petcare">Pet Care</option>
+                                <option value="food">Food Services</option>
+                                <option value="gardening">Gardening</option>
+                                <option value="other">Other</option>
                             </select>
                         </div>
-                    </div>
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Availability</label>
-                        <div class="grid grid-cols-3 gap-2">
-                            <label class="inline-flex items-center">
-                                        <input type="checkbox" name="availability" value="weekdays" class="rounded text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm">Weekdays</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                        <input type="checkbox" name="availability" value="weekends" class="rounded text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm">Weekends</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                        <input type="checkbox" name="availability" value="evenings" class="rounded text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm">Evenings</span>
-                            </label>
+                        <div>
+                            <label for="serviceTitle" class="block text-sm font-medium text-gray-700 mb-1">Service
+                                Title</label>
+                            <input type="text" id="serviceTitle" required
+                                   placeholder="e.g. Professional Handyman Services"
+                                   class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         </div>
-                    </div>
 
-                    <div>
-                                <label for="serviceLocation" class="block text-sm font-medium text-gray-700 mb-1">Service Area</label>
-                        <div class="flex">
-                                    <input type="text" id="serviceLocation" required placeholder="Enter your service area"
-                                   class="flex-1 px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    <button id="detectServiceLocation" type="button"
-                                    class="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition">
-                                <i class="fas fa-location-arrow"></i>
-                            </button>
+                        <div>
+                            <label for="serviceDescription"
+                                   class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                            <textarea id="serviceDescription" required rows="3"
+                                      placeholder="Describe your service in detail..."
+                                      class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+
+                        <!-- Image Upload Section -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Service Images</label>
+                            <div id="uploadArea" class="upload-area">
+                                <i class="fas fa-cloud-upload-alt text-3xl text-blue-500 mb-2"></i>
+                                <p class="text-sm text-gray-600">Drag & drop your images here or click to browse</p>
+                                <p class="text-xs text-gray-500 mt-1">Supports JPG, PNG (Max 5MB each)</p>
+                                <input type="file" id="fileInput" class="hidden" accept="image/*" multiple>
+                            </div>
+                            <div id="progressContainer" class="hidden">
+                                <p class="text-sm text-gray-600 mt-2">Uploading: <span id="uploadingFileName"></span>
+                                </p>
+                                <div class="progress-bar">
+                                    <div id="progressBarFill" class="progress-bar-fill"></div>
+                                </div>
+                            </div>
+                            <div id="imagePreviews" class="image-preview-container"></div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="serviceRate"
+                                       class="block text-sm font-medium text-gray-700 mb-1">Rate</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <span class="text-gray-500">$</span>
+                                    </div>
+                                    <input type="number" id="serviceRate" required placeholder="0.00"
+                                           class="w-full pl-7 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                        <span class="text-gray-500">/hr</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="serviceExperience" class="block text-sm font-medium text-gray-700 mb-1">Experience</label>
+                                <select id="serviceExperience" required
+                                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="beginner">Beginner</option>
+                                    <option value="intermediate">1-3 years</option>
+                                    <option value="experienced">3-5 years</option>
+                                    <option value="expert">5+ years</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Availability</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="availability" value="weekdays"
+                                           class="rounded text-blue-600 focus:ring-blue-500">
+                                    <span class="ml-2 text-sm">Weekdays</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="availability" value="weekends"
+                                           class="rounded text-blue-600 focus:ring-blue-500">
+                                    <span class="ml-2 text-sm">Weekends</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="availability" value="evenings"
+                                           class="rounded text-blue-600 focus:ring-blue-500">
+                                    <span class="ml-2 text-sm">Evenings</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="serviceLocation" class="block text-sm font-medium text-gray-700 mb-1">Service
+                                Area</label>
+                            <div class="flex">
+                                <input type="text" id="serviceLocation" required placeholder="Enter your service area"
+                                       class="flex-1 px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <button id="detectServiceLocation" type="button"
+                                        class="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition">
+                                    <i class="fas fa-location-arrow"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-                    <div class="flex justify-end space-x-3">
-                        <button id="cancelServiceOffer" type="button" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
-                    Cancel
-                </button>
-                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                            Submit Offer
-                </button>
-            </div>
-                </form>
+                <div class="flex justify-end space-x-3">
+                    <button id="cancelServiceOffer" type="button"
+                            class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                        Submit Offer
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 <!-- Success Toast -->
-    <div id="successToast" class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center hidden">
-        <i class="fas fa-check-circle mr-2"></i>
-        <span id="toastMessage">Service offer submitted successfully!</span>
-    </div>
+<div id="successToast"
+     class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center hidden">
+    <i class="fas fa-check-circle mr-2"></i>
+    <span id="toastMessage">Service offer submitted successfully!</span>
+</div>
 
 <!-- Footer -->
 <footer class="bg-gray-900 text-white py-12">
@@ -1273,6 +1297,7 @@
 <script>
     // Mock API endpoint for nearby services
     const BASE_URL = 'https://l6a1uu55te.execute-api.ap-south-1.amazonaws.com/service-stage/v1'
+    const BASE_OTP_URL = 'https://ksntpydbb9.execute-api.ap-south-1.amazonaws.com/dev/v1'
     //const BASE_URL = 'http://localhost:8080/v1'
     const USER_API_URL = BASE_URL + '/user'
     const PROVIDER_API_URL = BASE_URL + '/provider';
@@ -1282,21 +1307,21 @@
     var lng;
 
     const AWS_CONFIG = {
-            region: 'ap-south-1',
-            bucketName: 'sprovider-images'
-        };
+        region: 'ap-south-1',
+        bucketName: 'sprovider-images'
+    };
     // Variables to track uploaded files
-        let selectedFiles = [];
-        let uploadedImageUrls = [];
+    let selectedFiles = [];
+    let uploadedImageUrls = [];
 
-        // Initialize AWS SDK (would normally be loaded from AWS SDK)
-        // In a real app, you would use AWS SDK properly and not expose credentials in frontend
-        // This is a simplified example for demonstration
-        function initializeAWS() {
-            // Normally you would use AWS SDK properly with proper authentication
-            // This is just a placeholder for the demo
-            console.log('AWS would be initialized here with proper credentials');
-        }
+    // Initialize AWS SDK (would normally be loaded from AWS SDK)
+    // In a real app, you would use AWS SDK properly and not expose credentials in frontend
+    // This is a simplified example for demonstration
+    function initializeAWS() {
+        // Normally you would use AWS SDK properly with proper authentication
+        // This is just a placeholder for the demo
+        console.log('AWS would be initialized here with proper credentials');
+    }
 
     // Tab switching functionality
     const tabs = document.querySelectorAll('[data-tab]');
@@ -1360,212 +1385,211 @@
     const toastMessage = document.getElementById('toastMessage');
 
 
-
     /*openServiceOfferModal.addEventListener('click', () => {
             serviceOfferModal.classList.add('active');
         });*/
     // Click on upload area to trigger file input
-        uploadArea.addEventListener('click', () => {
-            fileInput.click();
-        });
+    uploadArea.addEventListener('click', () => {
+        fileInput.click();
+    });
 
-        // Handle drag and drop
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadArea.classList.add('active');
-        });
+    // Handle drag and drop
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('active');
+    });
 
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.classList.remove('active');
-        });
+    uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('active');
+    });
 
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.classList.remove('active');
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('active');
 
-            if (e.dataTransfer.files.length) {
-                handleFiles(e.dataTransfer.files);
-            }
-        });
+        if (e.dataTransfer.files.length) {
+            handleFiles(e.dataTransfer.files);
+        }
+    });
 
-        // Handle file selection
-        fileInput.addEventListener('change', (e) => {
-            if (e.target.files.length) {
-                handleFiles(e.target.files);
-            }
-        });
+    // Handle file selection
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length) {
+            handleFiles(e.target.files);
+        }
+    });
 
-        // Process selected files
-        function handleFiles(files) {
-            // Clear previous selections
-            selectedFiles = [];
-            imagePreviews.innerHTML = '';
+    // Process selected files
+    function handleFiles(files) {
+        // Clear previous selections
+        selectedFiles = [];
+        imagePreviews.innerHTML = '';
 
-            // Filter only image files and limit to 5
-            const imageFiles = Array.from(files).filter(file =>
-                file.type.startsWith('image/') && file.size <= 5 * 1024 * 1024
-            ).slice(0, 5);
+        // Filter only image files and limit to 5
+        const imageFiles = Array.from(files).filter(file =>
+            file.type.startsWith('image/') && file.size <= 5 * 1024 * 1024
+        ).slice(0, 5);
 
-            if (imageFiles.length === 0) {
-                alert('Please select valid image files (JPG, PNG) under 5MB each.');
-                return;
-            }
+        if (imageFiles.length === 0) {
+            alert('Please select valid image files (JPG, PNG) under 5MB each.');
+            return;
+        }
 
-            selectedFiles = imageFiles;
+        selectedFiles = imageFiles;
 
-            // Display previews
-            selectedFiles.forEach((file, index) => {
-                const reader = new FileReader();
+        // Display previews
+        selectedFiles.forEach((file, index) => {
+            const reader = new FileReader();
 
-                reader.onload = (e) => {
-                    const previewDiv = document.createElement('div');
-                    previewDiv.className = 'image-preview';
-                    previewDiv.innerHTML = `
+            reader.onload = (e) => {
+                const previewDiv = document.createElement('div');
+                previewDiv.className = 'image-preview';
+                previewDiv.innerHTML = `
                         <img src="${e.target.result}" alt="Preview ${index + 1}">
                         <div class="remove-image-btn" data-index="${index}">
                             <i class="fas fa-times"></i>
                         </div>
                     `;
-                    imagePreviews.appendChild(previewDiv);
+                imagePreviews.appendChild(previewDiv);
 
-                    // Add click event to remove button
-                    previewDiv.querySelector('.remove-image-btn').addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        removeImage(index);
-                    });
-                };
+                // Add click event to remove button
+                previewDiv.querySelector('.remove-image-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    removeImage(index);
+                });
+            };
 
-                reader.readAsDataURL(file);
-            });
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // Remove image from selection
+    function removeImage(index) {
+        selectedFiles.splice(index, 1);
+        renderImagePreviews();
+    }
+
+    // Re-render image previews after removal
+    function renderImagePreviews() {
+        imagePreviews.innerHTML = '';
+
+        if (selectedFiles.length === 0) {
+            return;
         }
 
-        // Remove image from selection
-        function removeImage(index) {
-            selectedFiles.splice(index, 1);
-            renderImagePreviews();
-        }
+        selectedFiles.forEach((file, index) => {
+            const reader = new FileReader();
 
-        // Re-render image previews after removal
-        function renderImagePreviews() {
-            imagePreviews.innerHTML = '';
-
-            if (selectedFiles.length === 0) {
-                return;
-            }
-
-            selectedFiles.forEach((file, index) => {
-                const reader = new FileReader();
-
-                reader.onload = (e) => {
-                    const previewDiv = document.createElement('div');
-                    previewDiv.className = 'image-preview';
-                    previewDiv.innerHTML = `
+            reader.onload = (e) => {
+                const previewDiv = document.createElement('div');
+                previewDiv.className = 'image-preview';
+                previewDiv.innerHTML = `
                         <img src="${e.target.result}" alt="Preview ${index + 1}">
                         <div class="remove-image-btn" data-index="${index}">
                             <i class="fas fa-times"></i>
                         </div>
                     `;
-                    imagePreviews.appendChild(previewDiv);
+                imagePreviews.appendChild(previewDiv);
 
-                    // Add click event to remove button
-                    previewDiv.querySelector('.remove-image-btn').addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        removeImage(index);
-                    });
-                };
+                // Add click event to remove button
+                previewDiv.querySelector('.remove-image-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    removeImage(index);
+                });
+            };
 
-                reader.readAsDataURL(file);
-            });
-        }
+            reader.readAsDataURL(file);
+        });
+    }
 
-        // Upload file to S3
-        async function uploadFileToS3(file) {
-            return new Promise((resolve, reject) => {
-                // In a real application, you would:
-                // 1. First request a pre-signed URL from your backend
-                // 2. Then use that URL to upload the file directly to S3
+    // Upload file to S3
+    async function uploadFileToS3(file) {
+        return new Promise((resolve, reject) => {
+            // In a real application, you would:
+            // 1. First request a pre-signed URL from your backend
+            // 2. Then use that URL to upload the file directly to S3
 
-                // This is a simplified mock implementation
-                console.log(`uploading file: ${file.name}`);
+            // This is a simplified mock implementation
+            console.log(`uploading file: ${file.name}`);
 
-                //const {url} = await getPresignedUrl(file.name, file.type);
-                fetch(BASE_URL + '/s3/presigned-url', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({fileName: file.name, contentType: file.type})
-                }).then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                    .then(data => {
-                        // Show success message
-                        fetch(data.url, {
-                            method: 'PUT',
-                            body: file,
-                            headers: {'Content-Type': file.type},
-                        });
-                    });
-
-                console.log('Upload successful!');
-
-                // Simulate upload progress
-                let progress = 0;
-                const interval = setInterval(() => {
-                    progress += 10;
-                    progressBarFill.style.width = `${progress}%`;
-                    uploadingFileName.textContent = file.name;
-
-                    if (progress >= 100) {
-                        clearInterval(interval);
-
-                        // Simulate successful upload
-                        setTimeout(() => {
-                            const mockUrl = `https://${AWS_CONFIG.bucketName}.s3.${AWS_CONFIG.region}.amazonaws.com/${file.name}`;
-                            resolve(mockUrl);
-                        }, 500);
-                    }
-                }, 200);
-            });
-        }
-
-        // Upload all selected files
-        async function uploadAllFiles() {
-            if (selectedFiles.length === 0) {
-                return [];
-            }
-
-            progressContainer.classList.remove('hidden');
-            uploadedImageUrls = [];
-
-            for (const file of selectedFiles) {
-                try {
-                    const url = await uploadFileToS3(file);
-                    uploadedImageUrls.push(url);
-                } catch (error) {
-                    console.error('Error uploading file:', error);
-                    // In a real app, you would handle this error appropriately
+            //const {url} = await getPresignedUrl(file.name, file.type);
+            fetch(BASE_URL + '/s3/presigned-url', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({fileName: file.name, contentType: file.type})
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
+                return response.json();
+            })
+                .then(data => {
+                    // Show success message
+                    fetch(data.url, {
+                        method: 'PUT',
+                        body: file,
+                        headers: {'Content-Type': file.type},
+                    });
+                });
+
+            console.log('Upload successful!');
+
+            // Simulate upload progress
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 10;
+                progressBarFill.style.width = `${progress}%`;
+                uploadingFileName.textContent = file.name;
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+
+                    // Simulate successful upload
+                    setTimeout(() => {
+                        const mockUrl = `https://${AWS_CONFIG.bucketName}.s3.${AWS_CONFIG.region}.amazonaws.com/${file.name}`;
+                        resolve(mockUrl);
+                    }, 500);
+                }
+            }, 200);
+        });
+    }
+
+    // Upload all selected files
+    async function uploadAllFiles() {
+        if (selectedFiles.length === 0) {
+            return [];
+        }
+
+        progressContainer.classList.remove('hidden');
+        uploadedImageUrls = [];
+
+        for (const file of selectedFiles) {
+            try {
+                const url = await uploadFileToS3(file);
+                uploadedImageUrls.push(url);
+            } catch (error) {
+                console.error('Error uploading file:', error);
+                // In a real app, you would handle this error appropriately
             }
-
-            progressContainer.classList.add('hidden');
-            progressBarFill.style.width = '0%';
-
-            return uploadedImageUrls;
         }
 
-        // Reset form
-        function resetForm() {
-            serviceOfferForm.reset();
-            selectedFiles = [];
-            uploadedImageUrls = [];
-            imagePreviews.innerHTML = '';
-            progressContainer.classList.add('hidden');
-            progressBarFill.style.width = '0%';
-        }
+        progressContainer.classList.add('hidden');
+        progressBarFill.style.width = '0%';
+
+        return uploadedImageUrls;
+    }
+
+    // Reset form
+    function resetForm() {
+        serviceOfferForm.reset();
+        selectedFiles = [];
+        uploadedImageUrls = [];
+        imagePreviews.innerHTML = '';
+        progressContainer.classList.add('hidden');
+        progressBarFill.style.width = '0%';
+    }
 
     // Show service offer modal
     offerServicesBtn.addEventListener('click', () => {
@@ -1634,7 +1658,7 @@
 
         // Prepare service data
         try {
-                // Upload files first
+            // Upload files first
             const imageUrls = await uploadAllFiles();
             const serviceData = {
                 user_id: user_id,
@@ -1646,61 +1670,61 @@
                 experience: serviceExperience,
                 //location: serviceLocation,
             };
-        console.log('Service data to be saved:', serviceData);
-        // Make POST request to backend API
-        fetch(PROVIDER_API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // Include authorization token if needed
-                // 'Authorization': 'Bearer ' + authToken
-            },
-            body: JSON.stringify({providers: [serviceData], latLong: {lat, lng}})
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
+            console.log('Service data to be saved:', serviceData);
+            // Make POST request to backend API
+            fetch(PROVIDER_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Include authorization token if needed
+                    // 'Authorization': 'Bearer ' + authToken
+                },
+                body: JSON.stringify({providers: [serviceData], latLong: {lat, lng}})
             })
-            .then(data => {
-                // Show success message
-                toastMessage.textContent = "Service offer submitted successfully!";
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Show success message
+                    toastMessage.textContent = "Service offer submitted successfully!";
+                    successToast.classList.remove('hidden');
+                    setTimeout(() => {
+                        successToast.classList.add('hidden');
+                    }, 3000);
+
+                    // Reset form and hide modal
+                    document.getElementById('serviceType').value = '';
+                    document.getElementById('serviceTitle').value = '';
+                    document.getElementById('serviceDescription').value = '';
+                    document.getElementById('serviceRate').value = '';
+                    document.getElementById('serviceLocation').value = '';
+                    hideServiceOfferModal();
+                }).catch(error => {
+                console.error('Error submitting service offer:', error);
+                toastMessage.textContent = "Failed to submit service offer. Please try again.";
+                successToast.className = successToast.className.replace('bg-green-500', 'bg-red-500');
                 successToast.classList.remove('hidden');
                 setTimeout(() => {
                     successToast.classList.add('hidden');
+                    successToast.className = successToast.className.replace('bg-red-500', 'bg-green-500');
                 }, 3000);
-
-                // Reset form and hide modal
-                document.getElementById('serviceType').value = '';
-                document.getElementById('serviceTitle').value = '';
-                document.getElementById('serviceDescription').value = '';
-                document.getElementById('serviceRate').value = '';
-                document.getElementById('serviceLocation').value = '';
-                hideServiceOfferModal();
-            }).catch(error => {
-            console.error('Error submitting service offer:', error);
-            toastMessage.textContent = "Failed to submit service offer. Please try again.";
-            successToast.className = successToast.className.replace('bg-green-500', 'bg-red-500');
-            successToast.classList.remove('hidden');
-            setTimeout(() => {
-                successToast.classList.add('hidden');
-                successToast.className = successToast.className.replace('bg-red-500', 'bg-green-500');
-            }, 3000);
-        })
-            .finally(() => {
-                // Reset button state
-                submitServiceOffer.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Submit Offer';
-                submitServiceOffer.disabled = false;
-            });
+            })
+                .finally(() => {
+                    // Reset button state
+                    submitServiceOffer.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Submit Offer';
+                    submitServiceOffer.disabled = false;
+                });
         } catch (error) {
-                console.error('Error submitting service offer:', error);
-                alert('There was an error submitting your service offer. Please try again.');
-            } finally {
-                // Reset button state
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalBtnText;
-            }
+            console.error('Error submitting service offer:', error);
+            alert('There was an error submitting your service offer. Please try again.');
+        } finally {
+            // Reset button state
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+        }
         fetchNearbyServices();
     });
 
@@ -1715,120 +1739,119 @@
     const verifySpinner = document.getElementById('verifySpinner');
     const verifyBtnText = document.getElementById('verifyBtnText');
     const resendCodeBtn = document.getElementById('resendCodeBtn');
+    const sendCodeBtn = document.getElementById('sendCodeBtn');
     const countdown = document.getElementById('countdown');
     const seconds = document.getElementById('seconds');
     const verificationDigits = document.querySelectorAll('.verification-digit');
     const phoneNumberInput = document.getElementById('phoneNumber');
 
-        const emailLoginBtn = document.getElementById('emailLoginBtn');
-        const sessionStatus = document.getElementById('sessionStatus');
-        const protectedContent = document.getElementById('protectedContent');
-        const userProfile = document.getElementById('userProfile');
-        const userName = document.getElementById('userName');
-        const userAvatar = document.getElementById('userAvatar');
-        const userDropdown = document.getElementById('userDropdown');
-        const logoutBtn = document.getElementById('logoutBtn');
+    const emailLoginBtn = document.getElementById('emailLoginBtn');
+    const sessionStatus = document.getElementById('sessionStatus');
+    const protectedContent = document.getElementById('protectedContent');
+    const userProfile = document.getElementById('userProfile');
+    const userName = document.getElementById('userName');
+    const userAvatar = document.getElementById('userAvatar');
+    const userDropdown = document.getElementById('userDropdown');
+    const logoutBtn = document.getElementById('logoutBtn');
 
-        // Session management
-        function startSession(userData) {
-            // Store session in localStorage
-            localStorage.setItem('sessionActive', 'true');
-            localStorage.setItem('userData', JSON.stringify(userData));
+    // Session management
+    function startSession(userData) {
+        // Store session in localStorage
+        localStorage.setItem('sessionActive', 'true');
+        localStorage.setItem('userData', JSON.stringify(userData));
 
-            // Update UI
-            //sessionStatus.textContent = `Welcome back, ${userData.name}!`;
-            loginBtn.classList.add('hidden');
-            userProfile.classList.remove('hidden');
-            userName.textContent = userData.name;
+        // Update UI
+        //sessionStatus.textContent = `Welcome back, ${userData.name}!`;
+        loginBtn.classList.add('hidden');
+        userProfile.classList.remove('hidden');
+        userName.textContent = userData.name;
 
-            // Set avatar (using placeholder if no image provided)
-            userAvatar.src = userData.picture || 'https://www.gravatar.com/avatar/?d=mp';
-            //protectedContent.classList.remove('hidden');
+        // Set avatar (using placeholder if no image provided)
+        userAvatar.src = userData.picture || 'https://www.gravatar.com/avatar/?d=mp';
+        //protectedContent.classList.remove('hidden');
 
-            // Close login modal if open
-            loginModal.classList.add('hidden');
+        // Close login modal if open
+        loginModal.classList.add('hidden');
+    }
+
+    function endSession() {
+        // Clear session from localStorage
+        localStorage.removeItem('sessionActive');
+        localStorage.removeItem('userData');
+
+        // Update UI
+        //sessionStatus.textContent = 'Please login to access your account.';
+        loginBtn.classList.remove('hidden');
+        userProfile.classList.add('hidden');
+        //protectedContent.classList.add('hidden');
+
+        // Hide dropdown if open
+        userDropdown.classList.remove('show');
+    }
+
+    // Check for existing session on page load
+    function checkSession() {
+        const sessionActive = localStorage.getItem('sessionActive');
+        const userData = localStorage.getItem('userData');
+
+        if (sessionActive && userData) {
+            startSession(JSON.parse(userData));
+        }
+    }
+
+    // Email login handler
+    emailLoginBtn.addEventListener('click', () => {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        // Simple validation
+        if (!email || !password) {
+            alert('Please enter both email and password');
+            return;
         }
 
-        function endSession() {
-            // Clear session from localStorage
-            localStorage.removeItem('sessionActive');
-            localStorage.removeItem('userData');
+        // In a real app, you would validate credentials with your backend
+        // For demo, we'll use the email username (part before @) as the display name
+        const username = email.split('@')[0];
+        startSession(username);
+    });
 
-            // Update UI
-            //sessionStatus.textContent = 'Please login to access your account.';
-            loginBtn.classList.remove('hidden');
-            userProfile.classList.add('hidden');
-            //protectedContent.classList.add('hidden');
+    // User dropdown handling
+    userProfile.addEventListener('click', (e) => {
+        e.stopPropagation();
+        userDropdown.classList.toggle('show');
+    });
 
-            // Hide dropdown if open
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!userProfile.contains(e.target) && !userDropdown.contains(e.target)) {
             userDropdown.classList.remove('show');
         }
+    });
 
-        // Check for existing session on page load
-        function checkSession() {
-            const sessionActive = localStorage.getItem('sessionActive');
-            const userData = localStorage.getItem('userData');
+    // Logout handling
+    logoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        endSession();
+    });
 
-            if (sessionActive && userData) {
-                startSession(JSON.parse(userData));
-            }
+    // Close dropdown when clicking outside
+    /*document.addEventListener('click', (e) => {
+        if (!userMenu.contains(e.target)) {
+            userDropdown.classList.remove('show');
         }
+    });*/
 
-        // Email login handler
-        emailLoginBtn.addEventListener('click', () => {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        checkSession();
 
-            // Simple validation
-            if (!email || !password) {
-                alert('Please enter both email and password');
-                return;
-            }
-
-            // In a real app, you would validate credentials with your backend
-            // For demo, we'll use the email username (part before @) as the display name
-            const username = email.split('@')[0];
-            startSession(username);
-        });
-
-        // User dropdown handling
-        userProfile.addEventListener('click', (e) => {
-            e.stopPropagation();
-            userDropdown.classList.toggle('show');
-        });
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!userProfile.contains(e.target) && !userDropdown.contains(e.target)) {
-                userDropdown.classList.remove('show');
-            }
-        });
-
-        // Logout handling
-        logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            endSession();
-        });
-
-        // Close dropdown when clicking outside
-        /*document.addEventListener('click', (e) => {
-            if (!userMenu.contains(e.target)) {
-                userDropdown.classList.remove('show');
-            }
-        });*/
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            checkSession();
-
-            // In a real app, you would also check for Google session
-            // This is just for demo purposes
-        });
-
+        // In a real app, you would also check for Google session
+        // This is just for demo purposes
+    });
 
 
     var user_phone;
-
 
 
     // Handle verification code input
@@ -1886,46 +1909,63 @@
 
         // Simulate API verification
         setTimeout(() => {
+            fetch(BASE_OTP_URL + '/api/verify-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({phoneNumber: '+91'+user_phone, otp: code})
+            }).then(response => {
+                console.log(response);
+                if (!response.ok) {
+                    // Error - shake animation
+                    verificationDigits.forEach(digit => {
+                        digit.classList.add('shake');
+                        digit.style.borderColor = '#ef4444';
+                        setTimeout(() => {
+                            digit.classList.remove('shake');
+                        }, 1000);
+                    });
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+                .then(data => {
+                    // Show success message
+                    console.log(data);
+                    phoneVerificationModal.classList.add('hidden');
+
+                    // Show success message (could be a toast)
+                    alert('Phone number verified successfully!');
+                    fetch(USER_PHONE_API_URL, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            emailId: user_id,
+                            phoneNumber: user_phone
+                        })
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok: ' + response.statusText);
+                            }
+                            return response.json(); // or response.text() if expecting plain text
+                        })
+                        .then(data => {
+                            showToast(`Phone Updated Successfully!`);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                });
             if (code === '123456') { // Hardcoded correct code for demo
                 // Success - close modal
-                phoneVerificationModal.classList.add('hidden');
-
-                // Show success message (could be a toast)
-                alert('Phone number verified successfully!');
-                fetch(USER_PHONE_API_URL, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        emailId: user_id,
-                        phoneNumber: user_phone
-                    })
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok: ' + response.statusText);
-                        }
-                        return response.json(); // or response.text() if expecting plain text
-                    })
-                    .then(data => {
-                        console.log('Phone Update Success:');
-                        showToast(`Phone Updated Successfully!`);
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
 
 
             } else {
-                // Error - shake animation
-                verificationDigits.forEach(digit => {
-                    digit.classList.add('shake');
-                    digit.style.borderColor = '#ef4444';
-                    setTimeout(() => {
-                        digit.classList.remove('shake');
-                    }, 1000);
-                });
+
             }
 
             // Reset verify button
@@ -1947,9 +1987,56 @@
         // Simulate API call to resend code
         setTimeout(() => {
             // Show success message (could be a toast)
+            sendVerificationCode();
             alert('New verification code sent!');
         }, 500);
     });
+
+    function sendVerificationCode() {
+        setTimeout(() => {
+            fetch(BASE_OTP_URL + '/api/send-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({phoneNumber: '+91' + user_phone})
+            }).then(response => {
+                console.log(response);
+                if (!response.ok) {
+                    // Error alert
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+                .then(data => {
+                    // Show success message
+                    console.log(data);
+                    // Show success message (could be a toast)
+                    alert('Verification Code sent successfully!');
+                });
+
+        }, 1500);
+    }
+
+    sendCodeBtn.addEventListener('click', () => {
+        console.log(user_phone)
+        if (!user_phone) {
+            alert('Please enter your mobile number');
+            return;
+        }
+
+        // Disable resend button and show countdown
+        sendCodeBtn.classList.add('text-gray-400', 'cursor-not-allowed');
+
+        // Simulate API call to send code
+        setTimeout(() => {
+            // Show success message (could be a toast)
+            sendVerificationCode();
+            alert('New verification code sent!');
+        }, 500);
+    });
+
+
 
     // Countdown function
     function startCountdown() {
@@ -1999,6 +2086,7 @@
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data);
                 user_id = data.email;
                 phone = data.phone;
                 const user = {
@@ -2037,16 +2125,6 @@
                 console.error("Authentication failed", err);
             });
 
-    }
-
-    function parseJwt(token) {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-
-        return JSON.parse(jsonPayload);
     }
 
     // Function to show toast notifications
@@ -2268,6 +2346,7 @@
 
     // Show service details in overlay
     function showServiceDetails(service) {
+        console.log(service);
         const serviceType = service.type || 'home';
         const styles = serviceTypeStyles[serviceType] || serviceTypeStyles['home'];
         /*service.images = [
@@ -2276,7 +2355,13 @@
                         "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
                     ];*/
         // Set main service image
-        console.log(service.images[0])
+        if(!service.images){
+           service.images = [
+                        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                        "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                        "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                    ];
+        }
         document.getElementById('detailServiceImage').src = service.images[0];
         document.getElementById('detailServiceTitle').textContent = service.title;
         document.getElementById('detailServiceCategory').textContent = styles.category;
