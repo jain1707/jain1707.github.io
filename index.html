@@ -435,9 +435,9 @@
                                 </button>
                             </li>
                             <li>
-                                <button class="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium flex items-center space-x-3">
+                                <button id="bookingsTabBtn" class="w-full text-left px-4 py-3 rounded-lg text-gray-700 font-medium flex items-center space-x-3">
                                     <i class="fas fa-user w-5"></i>
-                                    <span>Profile Settings</span>
+                                    <span>My Bookings</span>
                                 </button>
                             </li>
                             <li>
@@ -469,6 +469,21 @@
 
                         <!-- Services list will be populated here -->
                         <div id="servicesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Service cards will be added dynamically -->
+                        </div>
+                    </div>
+
+                    <div id="bookingsTabContent" class="hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-xl font-bold text-gray-800">My Bookings</h3>
+                            <button id="addNewBookingBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
+                                <i class="fas fa-plus"></i>
+                                <span>Add New Booking</span>
+                            </button>
+                        </div>
+
+                        <!-- Services list will be populated here -->
+                        <div id="bookingsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             <!-- Service cards will be added dynamically -->
                         </div>
                     </div>
@@ -1666,9 +1681,9 @@
 
 <script>
     // Mock API endpoint for nearby services
-    const BASE_URL = 'https://l6a1uu55te.execute-api.ap-south-1.amazonaws.com/service-stage/v1'
+    //const BASE_URL = 'https://l6a1uu55te.execute-api.ap-south-1.amazonaws.com/service-stage/v1'
     const BASE_OTP_URL = 'https://ksntpydbb9.execute-api.ap-south-1.amazonaws.com/dev/v1'
-    //const BASE_URL = 'http://localhost:8080/v1'
+    const BASE_URL = 'http://localhost:8080/v1'
     const USER_API_URL = BASE_URL + '/user'
     const PROVIDER_API_URL = BASE_URL + '/provider';
     const BOOKING_API_URL = BASE_URL + '/booking';
@@ -1772,6 +1787,24 @@
         const editModal = document.getElementById('editModal');
         const servicesList = document.getElementById('servicesList');
         const servicesTabBtn = document.getElementById('servicesTabBtn');
+        const bookingsTabBtn = document.getElementById('bookingsTabBtn');
+        const bookingsTabContent = document.getElementById('bookingsTabContent');
+        const servicesTabContent = document.getElementById('servicesTabContent');
+
+        //bookingsTabContent
+    bookingsTabBtn.addEventListener('click', () => {
+        servicesTabContent.classList.add('hidden');
+        servicesTabBtn.classList.remove('bg-indigo-100');
+        bookingsTabContent.classList.remove('hidden');
+        bookingsTabBtn.classList.add('bg-indigo-100');
+        renderBookings();
+    });
+    servicesTabBtn.addEventListener('click', () => {
+        bookingsTabContent.classList.add('hidden');
+        bookingsTabBtn.classList.remove('bg-indigo-100');
+        servicesTabContent.classList.remove('hidden');
+        servicesTabBtn.classList.add('bg-indigo-100');
+    });
 
     addNewServiceBtn.addEventListener('click', () => {
         serviceOfferModal.classList.add('active');
@@ -1864,6 +1897,75 @@
             profileModal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
             renderServices();
+        }
+
+        function renderBookings() {
+            bookingsList.innerHTML = '';
+            fetch(BOOKING_API_URL+'/'+user_id, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "GET"
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(bookings => {
+                // Hide loading state
+                if (bookings && bookings.length > 0) {
+                    // Render service cards
+                    userBookings=bookings;
+
+                    if (userBookings.length === 0) {
+                bookingsList.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class="fas fa-box-open text-4xl text-gray-400 mb-4"></i>
+                        <h4 class="text-lg font-medium text-gray-600">No services found</h4>
+                        <p class="text-gray-500 mt-2">You haven't added any bookings yet.</p>
+                        <button class="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg inline-flex items-center space-x-2 transition-colors">
+                            <i class="fas fa-plus"></i>
+                            <span>Add Your First Booking</span>
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            userBookings.forEach(service => {
+                service.status='Active';
+                const statusColor = service.status === 'Active' ? 'bg-green-100 text-green-800' :
+                                  service.status === 'Paused' ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-800';
+
+                const serviceCard = document.createElement('div');
+                serviceCard.className = 'bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200';
+                serviceCard.innerHTML = `
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="text-lg font-bold text-gray-800 truncate">${service.id}</h4>
+                            <span class="text-xs px-2 py-1 rounded-full ${statusColor}">${service.status}</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">${service.name}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-indigo-600">₹${service.rate}</span>
+
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-5 py-3 flex justify-between items-center text-xs text-gray-500 border-t">
+                        <span>${service.specialRequest}</span>
+                         <span>Added: ${new Date(service.date).toLocaleDateString()}</span>
+                    </div>
+                `;
+
+                bookingsList.appendChild(serviceCard);
+            });
+
+                }
+            });
+
         }
 
         function renderServices() {
@@ -2863,7 +2965,6 @@
                 hideLoadingSpinner();
                 fetchNearbyServicesWithType(serviceType)
                     .then(services => {
-                        console.log(services);
                         displayServices(services);
                     });
 
