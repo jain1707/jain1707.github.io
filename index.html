@@ -360,6 +360,8 @@
             background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(4px);
         }
+
+
     </style>
 </head>
 <!-- Navigation -->
@@ -371,10 +373,10 @@
             <span class="text-xl font-bold">ConnectServe</span>
         </div>
         <div class="hidden md:flex space-x-6">
-            <a href="#" class="hover:text-gray-200" data-tab="home">Home</a>
-            <a href="#" class="hover:text-gray-200" data-tab="how-it-works">How it works</a>
-            <a href="#" class="hover:text-gray-200" data-tab="services">Services</a>
-            <a href="#" class="hover:text-gray-200" data-tab="about">About</a>
+            <a href="#" onclick="showTab('home')" class="hover:text-gray-200" data-tab="home">Home</a>
+            <a href="#" onclick="showTab('how-it-works')" class="hover:text-gray-200" data-tab="how-it-works">How it works</a>
+            <a href="#" onclick="showTab('services')" class="hover:text-gray-200" data-tab="services">Services</a>
+            <a href="#" onclick="showTab('about')" class="hover:text-gray-200" data-tab="about">About</a>
         </div>
         <div class="flex items-center space-x-4 relative">
             <button id="loginBtn"
@@ -535,40 +537,51 @@
         </div>
     </div>
 
-<!-- Location Finder Modal -->
-<div id="locationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-    <div class="bg-white rounded-xl max-w-md w-full mx-4 overflow-hidden">
-        <div class="p-6">
-            <h3 class="text-2xl font-bold mb-4">Find Services Near You</h3>
-            <p class="text-gray-600 mb-6">We'll use your location to show services in your area. You can also enter a
-                different location.</p>
-
-            <div class="mb-6">
-                <div id="map" class="map-container mb-4"></div>
-                <div class="flex items-center mb-4">
-                    <input type="text" id="locationInput" placeholder="Enter your address"
-                           class="flex-1 px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <button id="detectLocationBtn"
-                            class="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition">
-                        <i class="fas fa-location-arrow"></i>
-                    </button>
-                </div>
-                <div id="locationError" class="text-red-500 text-sm hidden">Could not determine your location. Please
-                    enter it manually.
-                </div>
-            </div>
-
-            <div class="flex justify-between">
-                <button id="cancelLocationBtn" class="px-4 py-2 border rounded-lg hover:bg-gray-100 transition">Cancel
+<!-- Search Modal -->
+    <div id="searchModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl max-w-md w-full mx-4 overflow-hidden">
+            <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-2xl relative">
+                <button id="closeModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-2xl"></i>
                 </button>
-                <button id="confirmLocationBtn"
-                        class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Confirm
-                    Location
-                </button>
+
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Find Services Near You</h2>
+
+                    <form id="searchForm" class="space-y-4">
+                        <div>
+                            <label for="serviceType1" class="block text-gray-700 font-medium mb-2">What service do you need?</label>
+                            <input type="text" id="serviceType1" placeholder="e.g. Plumbing, Tutoring, Photography"
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+
+                        <div>
+                            <label for="location" class="block text-gray-700 font-medium mb-2">Location</label>
+                            <div class="flex">
+                                <input type="text" id="location" placeholder="Enter your address or zip code"
+                                       class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <button type="button" id="detectLocation" class="px-4 bg-gray-100 border border-l-0 border-gray-300 rounded-r-lg hover:bg-gray-200">
+                                    <i class="fas fa-location-arrow"></i>
+                                </button>
+                            </div>
+                            <div id="locationError" class="text-red-500 text-sm hidden">Could not determine your
+                                location. Please
+                                enter it manually.
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="submit" class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-bold hover:bg-blue-700 transition flex items-center justify-center">
+                                <i class="fas fa-search mr-2"></i> Search Services
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+
 <!-- Login Modal -->
 <div id="loginModal"
      class="login-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
@@ -705,7 +718,6 @@
         </div>
     </div>
 </div>
-
 <!-- Tab Contents -->
 <div id="home" class="tab-content active">
     <!-- Hero Section -->
@@ -930,6 +942,14 @@
                     Load More Services
                 </button>
             </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg flex items-center">
+            <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600 mr-4"></div>
+            <span class="text-gray-800 font-medium">Searching for services...</span>
+        </div>
+    </div>
         </div>
     </section>
 
@@ -946,8 +966,42 @@
     </section>
 </div>
 
+
+
 <!-- Services Tab Content -->
 <div id="services" class="tab-content">
+    <section id="servicesResults" class="py-12 bg-gray-50 hidden">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800">Available Services</h2>
+                <div class="flex space-x-2">
+                    <button id="refineSearch" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 flex items-center">
+                        <i class="fas fa-sliders-h mr-2"></i> Refine
+                    </button>
+                    <div class="relative">
+                        <select class="appearance-none px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 pr-8">
+                            <option>Sort by: Distance</option>
+                            <option>Sort by: Rating</option>
+                            <option>Sort by: Price</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                            <i class="fas fa-chevron-down text-gray-500"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="servicesList1" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Service cards will be dynamically inserted here -->
+            </div>
+
+            <div class="mt-8 flex justify-center">
+                <button id="loadMore" class="px-6 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50">
+                    Load More Results
+                </button>
+            </div>
+        </div>
+    </section>
     <section class="py-12 bg-white">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
@@ -1298,7 +1352,7 @@
     </section>
 </div>
 
-!-- Booking Form Modal -->
+<!-- Booking Form Modal -->
     <div id="bookingModal" class="modal-overlay">
         <div class="modal-container">
             <div class="p-6">
@@ -1612,16 +1666,16 @@
 
 <script>
     // Mock API endpoint for nearby services
-    const BASE_URL = 'https://l6a1uu55te.execute-api.ap-south-1.amazonaws.com/service-stage/v1'
+    //const BASE_URL = 'https://l6a1uu55te.execute-api.ap-south-1.amazonaws.com/service-stage/v1'
     const BASE_OTP_URL = 'https://ksntpydbb9.execute-api.ap-south-1.amazonaws.com/dev/v1'
-    //const BASE_URL = 'http://localhost:8080/v1'
+    const BASE_URL = 'http://localhost:8080/v1'
     const USER_API_URL = BASE_URL + '/user'
     const PROVIDER_API_URL = BASE_URL + '/provider';
     const BOOKING_API_URL = BASE_URL + '/booking';
     const AUTH_API_URL = BASE_URL + '/auth';
     let user_id
-    var lat;
-    var lng;
+    let lat;
+    let lng;
 
     const AWS_CONFIG = {
         region: 'ap-south-1',
@@ -1631,14 +1685,15 @@
     let selectedFiles = [];
     let uploadedImageUrls = [];
 
-    // Initialize AWS SDK (would normally be loaded from AWS SDK)
-    // In a real app, you would use AWS SDK properly and not expose credentials in frontend
-    // This is a simplified example for demonstration
-    function initializeAWS() {
-        // Normally you would use AWS SDK properly with proper authentication
-        // This is just a placeholder for the demo
-        console.log('AWS would be initialized here with proper credentials');
+    function showTab(tabId) {
+  const tabs = document.querySelectorAll('.tab-content');
+  tabs.forEach(tab => {
+    tab.style.display = 'none';
+  });
+
+  document.getElementById(tabId).style.display = 'block';
     }
+
 
     // Tab switching functionality
     const tabs = document.querySelectorAll('[data-tab]');
@@ -1862,7 +1917,7 @@
                         </div>
                         <p class="text-gray-600 text-sm mb-4 line-clamp-2">${service.desc}</p>
                         <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$${service.rate}</span>
+                            <span class="font-bold text-indigo-600">₹${service.rate}</span>
                             <div class="flex space-x-2">
                                 <button onclick="openEditModal('${service.id}')" class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 flex items-center justify-center transition-colors">
                                     <i class="fas fa-pencil-alt text-sm"></i>
@@ -2580,7 +2635,6 @@
         setTimeout(() => {
             // Show success message (could be a toast)
             sendVerificationCode();
-            alert('New verification code sent!');
         }, 500);
     });
 
@@ -2736,25 +2790,207 @@
     }
 
     // Location modal functionality (existing code)
-    const locationModal = document.getElementById('locationModal');
+    const searchModal = document.getElementById('searchModal');
+    const closeModal = document.getElementById('closeModal');
+    const searchForm = document.getElementById('searchForm');
     const findServicesBtn = document.getElementById('findServicesBtn');
     const cancelLocationBtn = document.getElementById('cancelLocationBtn');
-    const detectLocationBtn = document.getElementById('detectLocationBtn');
+    const detectLocationBtn = document.getElementById('detectLocation');
+    const servicesResults = document.getElementById('servicesResults');
+    const servicesList1 = document.getElementById('servicesList1');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const refineSearch = document.getElementById('refineSearch');
+    const loadMore = document.getElementById('loadMore');
+
+        // Mock data for services (in a real app, this would come from an API)
+        const mockServices = [
+            {
+                id: 1,
+                title: "Professional Plumbing Services",
+                provider: "John's Plumbing",
+                rating: 4.8,
+                reviews: 124,
+                distance: 2.5,
+                price: "$75 - $150",
+                description: "24/7 emergency plumbing services for leaks, clogs, and installations.",
+                image: "https://images.unsplash.com/photo-1607478900766-efe13248b125?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+            }
+        ];
+
     const confirmLocationBtn = document.getElementById('confirmLocationBtn');
-    const locationInput = document.getElementById('locationInput');
+    const locationInput = document.getElementById('location');
     const locationError = document.getElementById('locationError');
     const nearbyServicesContainer = document.getElementById('nearbyServices');
     const serviceDetailOverlay = document.getElementById('serviceDetailOverlay');
     const closeDetailBtn = document.getElementById('closeDetailBtn');
     const bookServiceBtn = document.getElementById('bookServiceBtn');
 
-    findServicesBtn.addEventListener('click', () => {
-        locationModal.classList.remove('hidden');
-    });
+    findServicesBtn.addEventListener('click', openSearchModal);
+    closeModal.addEventListener('click', closeSearchModal);
+    searchForm.addEventListener('submit', handleSearchSubmit);
+    //detectLocation.addEventListener('click', detectUserLocation);
+    refineSearch.addEventListener('click', openSearchModal);
+    loadMore.addEventListener('click', loadMoreServices);
 
-    cancelLocationBtn.addEventListener('click', () => {
-        locationModal.classList.add('hidden');
-    });
+
+    function openSearchModal() {
+            console.log(searchModal.classList);
+            searchModal.classList.remove('hidden');
+            console.log(searchModal.classList);
+            document.body.style.overflow = 'hidden';
+        }
+
+    function closeSearchModal() {
+            searchModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function handleSearchSubmit(e) {
+            e.preventDefault();
+            const serviceType = document.getElementById('serviceType1').value;
+            const location = document.getElementById('location').value;
+            console.log(location);
+            if (!serviceType || !location) {
+                alert('Please enter both service type and location');
+                return;
+            }
+
+            closeSearchModal();
+            showLoadingSpinner();
+
+            // Simulate API call with setTimeout
+            setTimeout(() => {
+                hideLoadingSpinner();
+                fetchNearbyServicesWithType(serviceType)
+                    .then(services => {
+                        console.log(services);
+                        displayServices(services);
+                    });
+
+                servicesResults.classList.remove('hidden');
+                showTab('services');
+                window.scrollTo({
+                    top: servicesResults.offsetTop - 20,
+                    behavior: 'smooth'
+                });
+            }, 1500);
+        }
+
+        function detectUserLocation() {
+            const locationInput = document.getElementById('location');
+            locationInput.placeholder = 'Detecting your location...';
+
+            // Simulate geolocation detection
+            setTimeout(() => {
+                locationInput.value = 'New York, NY';
+                locationInput.placeholder = 'Enter your address or zip code';
+            }, 1000);
+        }
+
+        function displayServices(services) {
+            servicesList1.innerHTML = '';
+
+            services.forEach(service => {
+                const serviceCard = document.createElement('div');
+                serviceCard.className = 'bg-white rounded-xl shadow-md overflow-hidden service-card transition duration-300';
+                serviceCard.innerHTML = `
+                    <img src="${service.images[0]}" alt="${service.type}" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">${service.title}</h3>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">${service.rate}</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">${service.provider}</p>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400 mr-2">
+                                ${renderStars(service.stars)}
+                            </div>
+                            <span class="text-gray-600 text-sm">${service.stars} (${service.reviews} reviews)</span>
+                        </div>
+                        <p class="text-gray-700 mb-4">${service.desc}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600"><i class="fas fa-map-marker-alt mr-1"></i> ${service.distance} km away</span>
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                                Contact
+                            </button>
+                        </div>
+                    </div>
+                `;
+                servicesList1.appendChild(serviceCard);
+            });
+        }
+
+        function renderStars(rating) {
+            let stars = '';
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<i class="fas fa-star"></i>';
+            }
+
+            if (hasHalfStar) {
+                stars += '<i class="fas fa-star-half-alt"></i>';
+            }
+
+            const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<i class="far fa-star"></i>';
+            }
+
+            return stars;
+        }
+
+        function showLoadingSpinner() {
+            loadingSpinner.classList.remove('hidden');
+        }
+
+        function hideLoadingSpinner() {
+            loadingSpinner.classList.add('hidden');
+        }
+
+        function loadMoreServices() {
+            showLoadingSpinner();
+
+            // Simulate loading more services
+            setTimeout(() => {
+                // In a real app, this would fetch more data from an API
+                const moreServices = [
+                    {
+                        id: 7,
+                        title: "Mobile Car Wash",
+                        provider: "Shiny Rides",
+                        rating: 4.7,
+                        reviews: 68,
+                        distance: 2.1,
+                        price: "$30 - $60",
+                        description: "Convenient mobile car washing and detailing at your location.",
+                        image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+                    },
+                    {
+                        id: 8,
+                        title: "Dog Walking",
+                        provider: "Happy Paws",
+                        rating: 4.9,
+                        reviews: 142,
+                        distance: 0.5,
+                        price: "$15 - $25",
+                        description: "Reliable and loving dog walking services for your furry friends.",
+                        image: "https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+                    }
+                ];
+
+                displayServices([...mockServices, ...moreServices]);
+                hideLoadingSpinner();
+                loadMore.classList.add('hidden');
+            }, 1000);
+        }
+
+    searchModal.addEventListener('click', (e) => {
+            if (e.target === searchModal) {
+                closeSearchModal();
+            }
+        });
 
     function locationFinder() {
         if (navigator.geolocation) {
@@ -2791,24 +3027,48 @@
         locationFinder();
     });
 
-    confirmLocationBtn.addEventListener('click', () => {
-        if (locationInput.value.trim() === "") {
-            locationError.textContent = "Please enter or detect your location";
-            locationError.classList.remove('hidden');
-            return;
-        }
-        locationModal.classList.add('hidden');
-        showToast('Location set successfully!');
-
-        // After setting location, fetch nearby services
-        fetchNearbyServices();
-    });
-
     // Initialize Google Sign-In
     function initializeGoogleSignIn() {
         // In a real app, you would configure this with your actual client ID
         // For now, we're using the demo configuration from the HTML
         console.log("Google Sign-In initialized");
+    }
+
+    // Function to fetch nearby services from API
+    function fetchNearbyServicesWithType(type) {
+        // Make API call to fetch nearby services
+        var provider_geo_url = PROVIDER_API_URL
+        if (lat) {
+            provider_geo_url = PROVIDER_API_URL + '/' + lat + '/' + lng +'/'+type;
+        }
+        //PROVIDER_URL=MOCK_API_URL+'34.455476767/68.232455531'
+        return fetch(provider_geo_url, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "GET"
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data) {
+                    // Render service cards
+                    return data;
+                }
+                else{
+                    return mockServices;
+                }
+            })
+            .catch(error => {
+                console.log(nearbyServicesContainer);
+                console.error('Error fetching nearby services:', error);
+                return mockServices;
+            });
     }
 
     // Function to fetch nearby services from API
@@ -2821,7 +3081,7 @@
         nearbyServicesContainer.innerHTML = '';
         nearbyServicesContainer.appendChild(loadingElement);
         // Make API call to fetch nearby services
-        var provider_geo_url = PROVIDER_API_URL
+        let provider_geo_url = PROVIDER_API_URL
         if (lat) {
             provider_geo_url = PROVIDER_API_URL + '/' + lat + '/' + lng;
         }
@@ -2864,16 +3124,6 @@
                 console.log(nearbyServicesContainer);
                 console.error('Error fetching nearby services:', error);
                 loadingElement.classList.add('hidden');
-                /*nearbyServicesContainer.innerHTML = `
-                    <div class="col-span-full text-center py-12">
-                        <i class="fas fa-exclamation-triangle text-4xl text-red-400 mb-4"></i>
-                        <p class="text-gray-600">Failed to load services. Please try again later.</p>
-                        <button onclick="fetchNearbyServices()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                            Retry
-                        </button>
-                    </div>
-                `;*/
-                //console.log(document.getElementById('loadingServices'));
             });
     }
 
